@@ -6,10 +6,11 @@ defmodule ElixirNbaTest.QueryString do
   test "builds query string from map" do
     # given
     expected = "?foo=bar&hello=world"
-    map = %{"hello" => "world", "foo" => "bar"}
+    map = %{"hello" => "world", "foo" => "bar", "invalid" => "filter this out", "empty" => ""}
+    valid_parameters = ["hello", "foo", "empty"]
 
     # when
-    actual = QueryString.build(map)
+    actual = QueryString.build(map, valid_parameters)
 
     # then
     assert expected == actual
