@@ -1,18 +1,15 @@
 defmodule ElixirNba do
+  alias ElixirNba.Parser
   @moduledoc """
-  Documentation for ElixirNba.
+   Elixir implementation of bttmly/nba-client-template
   """
 
-  @doc """
-  Hello world.
+  Parser.endpoints
+  |> Enum.each(fn endpoint ->
+    name = endpoint["name"]
+    url = endpoint["url"]
 
-  ## Examples
+    def unquote(:"#{name}")(), do: unquote(url)
+  end)
 
-      iex> ElixirNba.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end

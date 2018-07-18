@@ -2,7 +2,8 @@ defmodule ElixirNbaTest do
   use ExUnit.Case
   doctest ElixirNba
 
-  test "greets the world" do
-    assert ElixirNba.hello() == :world
+  test "creates functions for each endpoint" do
+    assert ElixirNba.player_profile == "http://stats.nba.com/stats/playerprofilev2"
+    assert ElixirNba.scoreboard == "http://stats.nba.com/stats/scoreboard"
   end
 end
