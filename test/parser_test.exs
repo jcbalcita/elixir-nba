@@ -13,10 +13,10 @@ defmodule ParserTest do
     headers = Parser.headers()
 
     # then
-    assert headers["user_agent"] ==
-             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"
+    assert headers["User-Agent"] ==
+             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0"
 
-    assert headers["referer"] == "http://stats.nba.com/scores/"
-    assert headers["origin"] == "http://stats.nba.com"
+    assert headers["Referer"] == "http://stats.nba.com"
+    assert headers["Origin"] == "http://stats.nba.com"
   end
 end

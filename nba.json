@@ -1,10 +1,16 @@
 {
-  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36",
-  "referrer": "http://stats.nba.com/scores/",
-  "referer": "http://stats.nba.com/scores/",
-  "origin": "http://stats.nba.com",
-  "stats_endpoints": [
-    {
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0",
+    "Referrer": "http://stats.nba.com",
+    "Referer": "http://stats.nba.com",
+    "Origin": "http://stats.nba.com",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-US",
+    "Accept": "*/*",
+    "Connection": "keep-alive",
+    "Cache-Control": "no-cache"
+  },
+  "stats_endpoints": [{
       "name": "player_profile",
       "url": "http://stats.nba.com/stats/playerprofilev2",
       "parameters": [
@@ -697,8 +703,7 @@
       ]
     }
   ],
-  "parameters": [
-    {
+  "parameters": [{
       "name": "Season",
       "default": "2017-18",
       "values": [

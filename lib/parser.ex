@@ -13,9 +13,5 @@ defmodule ElixirNba.Parser do
   def endpoints, do: @nba_map["stats_endpoints"]
 
   @spec headers :: map()
-  def headers do
-    ["user_agent", "referrer", "referer", "origin"]
-    |> Enum.map(fn h -> {h, @nba_map[h]} end)
-    |> Enum.into(%{})
-  end
+  def headers, do: @nba_map["headers"]
 end
