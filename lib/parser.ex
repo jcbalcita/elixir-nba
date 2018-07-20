@@ -3,6 +3,7 @@ defmodule ElixirNba.Parser do
   @nba_map with {:ok, body} <- File.read(json_path),
                 {:ok, json} <- Poison.decode(body),
                 do: json
+  @parameters_by_name Enum.reduce(@nba_map["parameters"], %{}, fn (p, acc) -> Map.put(acc, p["name"], p) end)
 
   def map, do: @nba_map
 
@@ -14,4 +15,7 @@ defmodule ElixirNba.Parser do
 
   @spec headers :: map()
   def headers, do: @nba_map["headers"]
+
+  @spec parameters_by_name :: map()
+  def parameters_by_name, do: @parameters_by_name
 end

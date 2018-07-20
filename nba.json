@@ -1523,13 +1523,6 @@
       ]
     },
     {
-      "name": "ClutchTime",
-      "default": "",
-      "values": [
-        "Last 5 Minutes"
-      ]
-    },
-    {
       "name": "PointDiff",
       "default": "",
       "values": [

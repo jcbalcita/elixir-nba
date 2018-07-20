@@ -7,6 +7,7 @@ defmodule ParserTest do
     # when
     parameters = Parser.parameters()
     endpoints = Parser.endpoints()
+    parameters_by_name = Parser.parameters_by_name()
 
     # then
     Enum.each(endpoints, fn p ->
@@ -15,6 +16,11 @@ defmodule ParserTest do
 
     Enum.each(parameters, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "default") && Map.has_key?(p, "values")
+    end)
+
+    Enum.each(parameters, fn p ->
+      assert Map.has_key?(parameters_by_name, p["name"])
+      assert Map.get(parameters_by_name, p["name"]) == p
     end)
   end
 
