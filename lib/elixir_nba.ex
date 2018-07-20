@@ -1,5 +1,6 @@
 defmodule ElixirNba do
   alias ElixirNba.Parser
+  alias ElixirNba.QueryString
 
   @moduledoc """
    Elixir implementation of bttmly/nba-client-template
@@ -12,7 +13,7 @@ defmodule ElixirNba do
     name = endpoint["name"]
     url = endpoint["url"]
 
-    def unquote(:"#{name}")() do
+    def unquote(:"#{name}")(_map) do
       url = unquote(url)
       @http.get(url)
 
