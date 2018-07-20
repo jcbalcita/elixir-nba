@@ -18,4 +18,11 @@ defmodule ElixirNba.Parser do
 
   @spec parameters_by_name :: map()
   def parameters_by_name, do: @parameters_by_name
+
+  @spec defaults_for_these_parameters(list(String.t())) :: map()
+  def defaults_for_these_parameters(parameter_names) do
+    parameter_names
+    |> Enum.map(fn p -> {p, @parameters_by_name[p]["default"]} end)
+    |> Enum.into(%{})
+  end
 end

@@ -40,4 +40,25 @@ defmodule ParserTest do
     assert headers["User-Agent"] ==
              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0"
   end
+
+  test "creates parameter_name -> default_value map from json file" do
+    # given
+    expected = %{
+      "LeagueID" => "00",
+      "SeasonType" => "Regular Season",
+      "PlayerID" => "0"
+    }
+
+    player_info_endpoint =
+      Parser.endpoints()
+      |> Enum.find(fn e -> e["name"] == "player_info" end)
+
+    valid_player_info_parameters = player_info_endpoint["parameters"]
+
+    # when
+    result = Parser.defaults_for_these_parameters(valid_player_info_parameters)
+
+    # then
+    assert result == expected
+  end
 end
