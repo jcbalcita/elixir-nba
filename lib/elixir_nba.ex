@@ -19,6 +19,5 @@ defmodule ElixirNba do
 
       url
     end
-
   end)
 end

@@ -20,5 +20,4 @@ defmodule ElixirNba.QueryString do
     parameter
     |> Enum.filter(fn {k, v} -> Enum.member?(valid_parameters, k) && String.length(v) > 0 end)
   end
-
 end
