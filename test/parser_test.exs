@@ -8,7 +8,7 @@ defmodule ParserTest do
     parameters = Parser.parameters()
     endpoints = Parser.endpoints()
     params_by_name = Parser.params_by_name()
-    endpoints_by_name = Parser.endpoints_by_name
+    endpoints_by_name = Parser.endpoints_by_name()
 
     # then
     Enum.each(endpoints, fn p ->
@@ -53,7 +53,7 @@ defmodule ParserTest do
     expected = %{
       "LeagueID" => "00",
       "SeasonType" => "Regular Season",
-      "PlayerID" => "0"
+      "PlayerID" => "1"
     }
 
     player_info_endpoint =

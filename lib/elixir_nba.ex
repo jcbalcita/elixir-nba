@@ -16,11 +16,12 @@ defmodule ElixirNba do
     def unquote(:"#{name}")() do
       unquote(params)
       |> Enum.join("  |  ")
-      |> IO.puts
+      |> IO.puts()
     end
+
     def unquote(:"#{name}")(user_input) do
       endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
-      endpoint = Parser.endpoints_by_name[endpoint_name]
+      endpoint = Parser.endpoints_by_name()[endpoint_name]
       url = endpoint["url"]
       valid_params = endpoint["parameters"]
 
@@ -29,7 +30,7 @@ defmodule ElixirNba do
         |> Map.merge(user_input)
         |> QueryString.build(valid_params)
 
-      url <> query_string
+      (url <> query_string)
       |> @http.get()
     end
   end)
