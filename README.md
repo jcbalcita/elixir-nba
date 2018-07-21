@@ -2,20 +2,23 @@
 
 **TODO: Add description**
 
-## Installation
+## Use
+`iex -S mix`
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_nba` to your list of dependencies in `mix.exs`:
+Each endpoint has two corresponding functions in the `ElixirNba` module.
+
+Type `ElixirNba.` then tab to see what's available.
+
+The functions with arity of 0 return a list of the endpoint's valid parameters, e.g.
 
 ```elixir
-def deps do
-  [
-    {:elixir_nba, "~> 0.1.0"}
-  ]
-end
+iex(1)> ElixirNba.player_info()
+PlayerID | SeasonType | LeagueID
+:ok
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_nba](https://hexdocs.pm/elixir_nba).
+To make a call to the endpoint, pass in a `map()` containing param keys and values, e.g.
 
+```elixir
+iex(2)> ElixirNba.player_info(%{"PlayerID" => "1627742"})
+```
