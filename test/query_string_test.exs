@@ -5,7 +5,7 @@ defmodule ElixirNbaTest.QueryString do
 
   test "builds query string from map" do
     # given
-    expected = "?foo=bar&hello=world"
+    expected = "?empty=&foo=bar&hello=world"
     map = %{"hello" => "world", "foo" => "bar", "invalid" => "filter this out", "empty" => ""}
     valid_parameters = ["hello", "foo", "empty"]
 

@@ -15,8 +15,8 @@ defmodule ElixirNba do
 
     def unquote(:"#{name}")() do
       unquote(params)
-      |> Enum.join(" | ")
-      |> IO.puts()
+      |> Enum.chunk_every(5)
+      |> Enum.each(fn chunk -> Enum.join(chunk, " | ") |> IO.puts() end)
     end
 
     def unquote(:"#{name}")(user_input) do
