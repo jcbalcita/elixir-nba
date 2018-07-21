@@ -33,4 +33,6 @@ defmodule ElixirNba.Parser do
     |> Enum.map(fn p -> {p, @parameters_by_name[p]["default"]} end)
     |> Enum.into(%{})
   end
+
+  def decode(json), do: Poison.decode(json)
 end
