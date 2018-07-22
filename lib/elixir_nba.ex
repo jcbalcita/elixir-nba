@@ -26,6 +26,12 @@ defmodule ElixirNba do
   key/values.
 
       ElixirNba.player_info(%{"PlayerID" => "1627742"})
+
+  If you need example values for a query param, use
+  `ElixirNba.param_values_for/1`.
+
+      ElixirNba.param_values_for("AheadBehind")
+      #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
   """
 
   alias ElixirNba.Parser
@@ -66,5 +72,10 @@ defmodule ElixirNba do
     __MODULE__.__info__(:functions)
     |> Enum.filter(fn {_, arity} -> arity > 0 end)
     |> Enum.map(fn {name, _} -> name end)
+  end
+
+  @spec param_values_for(String.t()) :: list(String.t())
+  def param_values_for(param_name) do
+    Parser.params_by_name()[param_name]["values"]
   end
 end
