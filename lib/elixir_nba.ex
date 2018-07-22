@@ -11,10 +11,12 @@ defmodule ElixirNba do
   Parser.endpoints()
   |> Enum.each(fn endpoint ->
     name = endpoint["name"]
-    params = endpoint["parameters"]
 
     def unquote(:"#{name}")() do
-      unquote(params)
+      endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
+      endpoint = Parser.endpoints_by_name()[endpoint_name]
+
+      endpoint["parameters"]
       |> Enum.chunk_every(5)
       |> Enum.each(fn chunk -> Enum.join(chunk, " | ") |> IO.puts() end)
     end
