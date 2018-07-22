@@ -10,7 +10,7 @@ defmodule ElixirNba do
   ## Examples
   See what endpoints you can hit:
       
-      ElixirNba.available_functions()
+      ElixirNba.available_endpoints()
       #=> ["assist_tracker", "box_score", "box_score_summary", ...]
       
   Each endpoint has two corresponding functions, one with an 
@@ -67,8 +67,8 @@ defmodule ElixirNba do
     end
   end)
 
-  @spec available_functions() :: list(atom())
-  def available_functions() do
+  @spec available_endpoints() :: list(atom())
+  def available_endpoints() do
     __MODULE__.__info__(:functions)
     |> Enum.filter(fn {_, arity} -> arity > 0 end)
     |> Enum.map(fn {name, _} -> name end)
