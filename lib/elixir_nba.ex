@@ -74,8 +74,9 @@ defmodule ElixirNba do
     |> Enum.map(fn {name, _} -> name end)
   end
 
-  @spec param_values_for(String.t()) :: list(String.t())
+  @spec param_values_for(String.t()) :: list(String.t()) 
   def param_values_for(param_name) do
-    Parser.params_by_name()[param_name]["values"]
+    param = Parser.params_by_name()[param_name]
+    if param == nil, do: ["No such param found"], else: param["values"]
   end
 end
