@@ -34,16 +34,20 @@ defmodule ElixirNba.Parser do
     |> Enum.into(%{})
   end
 
-  @spec transform_api_response(map()) :: String.t() | list(map())
+  @spec transform_api_response(map()) :: String.t() | map()
   def transform_api_response(:error), do: "Try again!"
 
   def transform_api_response(json) do
     json["resultSets"]
-    |> Enum.map(fn result_set ->
-      result_set["rowSet"]
-      |> Enum.map(fn row_set ->
-        Enum.zip(result_set["headers"], row_set) |> Enum.into(%{})
-      end)
+    |> Enum.reduce(%{}, fn result_set, acc ->
+      name = result_set["name"]
+      values = 
+        result_set["rowSet"]
+        |> Enum.map(fn row_set ->
+          Enum.zip(result_set["headers"], row_set) |> Enum.into(%{})
+        end)
+      
+      Map.put(acc, name, values)
     end)
   end
 end

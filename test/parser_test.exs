@@ -108,8 +108,8 @@ defmodule ParserTest do
       ]
     }
 
-    expected = [
-      [
+    expected = %{
+      "CommonPlayerInfo" => [
         %{
           "player_name" => "John Carlo",
           "school" => "UCLA",
@@ -121,12 +121,12 @@ defmodule ParserTest do
           "draft_year" => "2012"
         }
       ],
-      [
+      "Headline" => [
         %{
           "player_name" => "John Carlo"
         }
       ]
-    ]
+    }
 
     # when
     result = Parser.transform_api_response(json_response)
