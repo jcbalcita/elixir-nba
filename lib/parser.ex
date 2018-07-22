@@ -41,12 +41,13 @@ defmodule ElixirNba.Parser do
     json["resultSets"]
     |> Enum.reduce(%{}, fn result_set, acc ->
       name = result_set["name"]
-      values = 
+
+      values =
         result_set["rowSet"]
         |> Enum.map(fn row_set ->
           Enum.zip(result_set["headers"], row_set) |> Enum.into(%{})
         end)
-      
+
       Map.put(acc, name, values)
     end)
   end
