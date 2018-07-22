@@ -68,4 +68,70 @@ defmodule ParserTest do
     # then
     assert result == expected
   end
+
+  test "correctly parses json from api response" do
+    # given
+    json_response = %{
+      "resource" => "commonplayerinfo",
+      "resultSets" => [
+        %{
+          "name" => "CommonPlayerInfo",
+          "headers" => [
+            "player_name",
+            "school",
+            "draft_year"
+          ],
+          "rowSet" => [
+            [
+              "John Carlo",
+              "UCLA",
+              "2009"
+            ],
+            [
+              "Kaylen",
+              "UC Berkeley",
+              "2012"
+            ]
+          ]
+        },
+        %{
+          "name" => "Headline",
+          "headers" => [
+            "player_name"
+          ],
+          "rowSet" => [
+            [
+              "John Carlo"
+            ]
+          ]
+        }
+      ]
+    }
+
+    expected = [
+      [
+        %{
+          "player_name" => "John Carlo",
+          "school" => "UCLA",
+          "draft_year" => "2009"
+        },
+        %{
+          "player_name" => "Kaylen",
+          "school" => "UC Berkeley",
+          "draft_year" => "2012"
+        }
+      ],
+      [
+        %{
+          "player_name" => "John Carlo"
+        }
+      ]
+    ]
+
+    # when
+    result = Parser.transform_api_response(json_response)
+
+    # then 
+    assert result == expected
+  end
 end

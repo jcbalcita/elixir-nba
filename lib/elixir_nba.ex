@@ -17,8 +17,6 @@ defmodule ElixirNba do
       endpoint = Parser.endpoints_by_name()[endpoint_name]
 
       endpoint["parameters"]
-      |> Enum.chunk_every(5)
-      |> Enum.each(fn chunk -> Enum.join(chunk, " | ") |> IO.puts() end)
     end
 
     def unquote(:"#{name}")(user_input) do
@@ -34,6 +32,8 @@ defmodule ElixirNba do
 
       (url <> query_string)
       |> @http.get()
+      |> Parser.transform_api_response()
     end
   end)
+
 end
