@@ -4,7 +4,7 @@ defmodule ElixirNba.Http do
   @headers Parser.headers()
 
   def get(url) do
-    IO.puts "Fetching – #{url}\n"
+    IO.puts("Fetching – #{url}\n")
 
     case HTTPoison.get(url, @headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: headers}} ->

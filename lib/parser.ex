@@ -36,6 +36,7 @@ defmodule ElixirNba.Parser do
 
   @spec transform_api_response(map()) :: list(map())
   def transform_api_response(:error), do: "Try again!"
+
   def transform_api_response(json) do
     json["resultSets"]
     |> Enum.map(fn result_set ->
