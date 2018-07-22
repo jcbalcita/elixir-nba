@@ -36,4 +36,20 @@ defmodule ElixirNba do
     end
   end)
 
+  @spec available_functions() :: list(String.t())
+  def available_functions() do
+    functions = 
+      __MODULE__.__info__(:functions)
+      |> Enum.filter(fn {_, arity} -> 
+        arity > 0
+      end)
+      |> Enum.map(fn {name, arity} -> 
+        "#{name}/#{arity}"
+      end)
+    
+    Enum.each(functions, &(IO.puts(&1)))
+
+    functions
+  end
+
 end
