@@ -112,9 +112,9 @@ defmodule ElixirNba.FakeHttp do
 
   def get(url) do
     case URI.parse(url) do
-      %URI{scheme: nil} -> {:error, url}
-      %URI{host: nil} -> {:error, url}
-      %URI{path: nil} -> {:error, url}
+      %URI{scheme: nil} -> :error
+      %URI{host: nil} -> :error
+      %URI{path: nil} -> :error
       _ -> @result
     end
   end

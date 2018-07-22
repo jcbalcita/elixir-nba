@@ -11,18 +11,19 @@ defmodule ElixirNba do
   See what endpoints you can hit:
       
       ElixirNba.available_functions()
-      #=> ["assist_tracker/1", "box_score/1", "box_score_summary/1", ...]
+      #=> ["assist_tracker", "box_score", "box_score_summary", ...]
       
-  Each of these endpoint functions has a corresponding function with 
-  an arity of 0 that returns a list of the query parameters for 
-  the endpoint.
+  Each endpoint has two corresponding functions, one with an 
+  arity of 0 and one with an arity of 1. The 0-arity functions
+  return a list of the available query parameters for 
+  its endpoint.
 
       ElixirNba.player_info()
       #=> ["PlayerID", "SeasonType", "LeagueID"]
 
   Now that you know what query params you can pass, let's make
-  a call to the endpoint. The endpoint functions take in one
-  argument, a `map()` of query param key/values.
+  a call to the endpoint by passing in a map of query param 
+  key/values.
 
       ElixirNba.player_info(%{"PlayerID" => "1627742"})
   """
@@ -60,19 +61,10 @@ defmodule ElixirNba do
     end
   end)
 
-  @spec available_functions() :: list(String.t())
+  @spec available_functions() :: list(atom())
   def available_functions() do
-    functions =
-      __MODULE__.__info__(:functions)
-      |> Enum.filter(fn {_, arity} ->
-        arity > 0
-      end)
-      |> Enum.map(fn {name, arity} ->
-        "#{name}/#{arity}"
-      end)
-
-    Enum.each(functions, &IO.puts(&1))
-
-    functions
+    __MODULE__.__info__(:functions)
+    |> Enum.filter(fn {_, arity} -> arity > 0 end)
+    |> Enum.map(fn {name, _} -> name end)
   end
 end
