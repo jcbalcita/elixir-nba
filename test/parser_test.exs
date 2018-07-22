@@ -11,6 +11,9 @@ defmodule ParserTest do
     endpoints_by_name = Parser.endpoints_by_name()
 
     # then
+    assert Enum.count(parameters) == 76
+    assert Enum.count(endpoints) == 32
+
     Enum.each(endpoints, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "url") && Map.has_key?(p, "parameters")
     end)
