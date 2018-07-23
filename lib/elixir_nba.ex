@@ -43,6 +43,7 @@ defmodule ElixirNba do
   |> Enum.each(fn endpoint ->
     name = endpoint["name"]
 
+    @spec unquote(:"#{name}")() :: list(String.t())
     def unquote(:"#{name}")() do
       endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
       endpoint = Parser.endpoints_by_name()[endpoint_name]
@@ -50,6 +51,7 @@ defmodule ElixirNba do
       endpoint["parameters"]
     end
 
+    @spec unquote(:"#{name}")(map()) :: map()
     def unquote(:"#{name}")(user_input) do
       endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
       endpoint = Parser.endpoints_by_name()[endpoint_name]
