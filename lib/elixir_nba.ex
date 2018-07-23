@@ -37,7 +37,7 @@ defmodule ElixirNba do
   alias ElixirNba.Parser
   alias ElixirNba.QueryString
 
-  @http Application.get_env(:elixir_nba, :http)
+  @http ElixirNba.Http
 
   Parser.endpoints()
   |> Enum.each(fn endpoint ->
