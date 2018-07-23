@@ -1,5 +1,5 @@
 # ElixirNba
-http://www.github.com/jcbalcita/elixir-nba
+https://hex.pm/packages/elixir_nba/
 
   Elixir implementation of bttmly/nba-client-template
 
