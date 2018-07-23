@@ -2,27 +2,27 @@ defmodule ElixirNba do
   @moduledoc """
   Elixir implementation of bttmly/nba-client-template
 
-  stats.nba.com uses a large number of undocumented JSON endpoints 
-  to provide the statistics tables and charts displayed therein. 
-  This library provides an Elixir client for interacting with many 
+  stats.nba.com uses a large number of undocumented JSON endpoints
+  to provide the statistics tables and charts displayed therein.
+  This library provides an Elixir client for interacting with many
   of those API endpoints.
 
   ## Examples
   See what endpoints you can hit:
-      
-      ElixirNba.available_endpoints()
+
+      ElixirNba.endpoints()
       #=> ["assist_tracker", "box_score", "box_score_summary", ...]
-      
-  Each endpoint has two corresponding functions, one with an 
+
+  Each endpoint has two corresponding functions, one with an
   arity of 0 and one with an arity of 1. The 0-arity functions
-  return a list of the available query parameters for 
+  return a list of the available query parameters for
   its endpoint.
 
       ElixirNba.player_info()
       #=> ["PlayerID", "SeasonType", "LeagueID"]
 
   Now that you know what query params you can pass, let's make
-  a call to the endpoint by passing in a map of query param 
+  a call to the endpoint by passing in a map of query param
   key/values.
 
       ElixirNba.player_info(%{"PlayerID" => "1627742"})
@@ -67,8 +67,8 @@ defmodule ElixirNba do
     end
   end)
 
-  @spec available_endpoints() :: list(atom())
-  def available_endpoints() do
+  @spec endpoints() :: list(atom())
+  def endpoints() do
     __MODULE__.__info__(:functions)
     |> Enum.filter(fn {_, arity} -> arity > 0 end)
     |> Enum.map(fn {name, _} -> name end)
