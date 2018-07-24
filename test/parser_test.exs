@@ -132,9 +132,24 @@ defmodule ParserTest do
     }
 
     # when
-    result = Parser.transform_api_response(json_response)
+    result = Parser.transform_api_response({:ok, json_response})
 
-    # then 
+    # then
+    assert result == expected
+  end
+
+  test "handles bad responses from api" do
+    # given
+    json_response = %{
+      "error" => "what happen"
+    }
+
+    expected = %{}
+
+    # when
+    result = Parser.transform_api_response({:error, json_response})
+
+    # then
     assert result == expected
   end
 end

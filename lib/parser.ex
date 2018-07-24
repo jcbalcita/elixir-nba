@@ -34,10 +34,8 @@ defmodule Nba.Parser do
     |> Enum.into(%{})
   end
 
-  @spec transform_api_response(map()) :: String.t() | map()
-  def transform_api_response(:error), do: "Try again!"
-
-  def transform_api_response(json) do
+  @spec transform_api_response(map()) :: map()
+  def transform_api_response({:ok, json}) do
     json["resultSets"]
     |> Enum.reduce(%{}, fn result_set, acc ->
       name = result_set["name"]
@@ -51,4 +49,6 @@ defmodule Nba.Parser do
       Map.put(acc, name, values)
     end)
   end
+
+  def transform_api_response(_), do: %{}
 end

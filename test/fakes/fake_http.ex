@@ -112,10 +112,10 @@ defmodule Nba.FakeHttp do
 
   def get(url) do
     case URI.parse(url) do
-      %URI{scheme: nil} -> :error
-      %URI{host: nil} -> :error
-      %URI{path: nil} -> :error
-      _ -> @result
+      %URI{scheme: nil} -> {:error, "bad url"}
+      %URI{host: nil} -> {:error, "bad url"}
+      %URI{path: nil} -> {:error, "bad url"}
+      _ -> {:ok, @result}
     end
   end
 end

@@ -8,16 +8,16 @@ defmodule Nba.Http do
 
     case HTTPoison.get(url, @headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: headers}} ->
-        handle_response(body, headers)
+        {:ok, handle_response(body, headers)}
 
       {:ok, %HTTPoison.Response{status_code: status_code, body: body}} ->
         IO.puts("Oops! Status code: #{status_code}")
         IO.puts(body)
-        :error
+        {:error, body}
 
       {:error, %HTTPoison.Error{reason: reason}} ->
         IO.puts("Uh oh! #{reason}")
-        :error
+        {:error, reason}
     end
   end
 
