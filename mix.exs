@@ -4,7 +4,7 @@ defmodule Nba.MixProject do
   def project do
     [
       app: :nba,
-      version: "0.1.0",
+      version: "0.1.2",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -35,13 +35,8 @@ defmodule Nba.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      env: [http: http_module()]
+      extra_applications: [:logger]
     ]
-  end
-
-  def http_module do
-    if Mix.env == :prod, do: Nba.Http, else: Nba.FakeHttp
   end
 
   # Run "mix help deps" to learn about dependencies.
