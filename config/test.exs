@@ -1,3 +1,3 @@
 use Mix.Config
 
-config :elixir_nba, :http, ElixirNba.FakeHttp
+config :nba, :http, Nba.FakeHttp

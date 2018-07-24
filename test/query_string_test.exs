@@ -1,7 +1,7 @@
-defmodule ElixirNbaTest.QueryString do
+defmodule NbaTest.QueryString do
   use ExUnit.Case
-  doctest ElixirNba.QueryString
-  alias ElixirNba.QueryString
+  doctest Nba.QueryString
+  alias Nba.QueryString
 
   test "builds query string from map" do
     # given

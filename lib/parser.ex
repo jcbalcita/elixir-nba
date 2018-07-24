@@ -1,4 +1,4 @@
-defmodule ElixirNba.Parser do
+defmodule Nba.Parser do
   @external_resource json_path = Path.join([__DIR__, "../nba.json"])
   @nba_map with {:ok, body} <- File.read(json_path),
                 {:ok, json} <- Poison.decode(body),

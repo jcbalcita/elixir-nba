@@ -1,4 +1,4 @@
-defmodule ElixirNba.FakeHttp do
+defmodule Nba.FakeHttp do
   @result %{
     "parameters" => [%{"PlayerID" => 111}, %{"LeagueID" => "00"}],
     "resource" => "commonplayerinfo",

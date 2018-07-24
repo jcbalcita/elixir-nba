@@ -1,5 +1,5 @@
-defmodule ElixirNba.Http do
-  alias ElixirNba.Parser
+defmodule Nba.Http do
+  alias Nba.Parser
 
   @headers Parser.headers()
 

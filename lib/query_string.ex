@@ -1,4 +1,4 @@
-defmodule ElixirNba.QueryString do
+defmodule Nba.QueryString do
   @spec build(map(), list(String.t())) :: String.t()
   def build(parameter_map, valid_parameters) do
     query_string =

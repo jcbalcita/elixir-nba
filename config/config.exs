@@ -1,5 +1,5 @@
 use Mix.Config
 
-config :elixir_nba, :http, ElixirNba.Http
+config :nba, :http, Nba.Http
 
 import_config "#{Mix.env()}.exs"

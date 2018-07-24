@@ -1,4 +1,4 @@
-defmodule ElixirNba do
+defmodule Nba do
   @moduledoc """
   Elixir implementation of bttmly/nba-client-template
 
@@ -10,7 +10,7 @@ defmodule ElixirNba do
   ## Examples
   See what endpoints you can hit:
 
-      ElixirNba.endpoints()
+      Nba.endpoints()
       #=> ["assist_tracker", "box_score", "box_score_summary", ...]
 
   Each endpoint has two corresponding functions, one with an
@@ -18,26 +18,26 @@ defmodule ElixirNba do
   return a list of the available query parameters for
   its endpoint.
 
-      ElixirNba.player_info()
+      Nba.player_info()
       #=> ["PlayerID", "SeasonType", "LeagueID"]
 
   Now that you know what query params you can pass, let's make
   a call to the endpoint by passing in a map of query param
   key/values.
 
-      ElixirNba.player_info(%{"PlayerID" => "1627742"})
+      Nba.player_info(%{"PlayerID" => "1627742"})
 
   If you need example values for a query param, use
-  `ElixirNba.param_values_for/1`.
+  `Nba.param_values_for/1`.
 
-      ElixirNba.param_values_for("AheadBehind")
+      Nba.param_values_for("AheadBehind")
       #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
   """
 
-  alias ElixirNba.Parser
-  alias ElixirNba.QueryString
+  alias Nba.Parser
+  alias Nba.QueryString
 
-  @http ElixirNba.Http
+  @http Application.get_env(:nba, :http)
 
   Parser.endpoints()
   |> Enum.each(fn endpoint ->

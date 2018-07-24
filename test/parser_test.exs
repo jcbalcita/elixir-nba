@@ -1,7 +1,7 @@
 defmodule ParserTest do
   use ExUnit.Case
-  doctest ElixirNba.Parser
-  alias ElixirNba.Parser
+  doctest Nba.Parser
+  alias Nba.Parser
 
   test "can read parameters and endpoints from json file" do
     # when
