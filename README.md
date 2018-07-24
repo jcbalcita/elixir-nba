@@ -11,7 +11,7 @@ https://hex.pm/packages/nba/
   ## Examples
   See what endpoints you can hit:
 
-      ElixirNba.endpoints()
+      Nba.endpoints()
       #=> [:assist_tracker, :box_score, :player_info, ...]
 
   Each endpoint has two corresponding functions, one with an
@@ -19,17 +19,17 @@ https://hex.pm/packages/nba/
   return a list of the available query parameters for
   its endpoint.
 
-      ElixirNba.player_info()
+      Nba.player_info()
       #=> ["PlayerID", "SeasonType", "LeagueID"]
 
   Now that you know what query params you can pass, let's make
   a call to the endpoint by passing in a map of query param
   key/values.
 
-      ElixirNba.player_info(%{"PlayerID" => "1627742"})
+      Nba.player_info(%{"PlayerID" => "1627742"})
 
   If you need example values for a query param, use `ElixirNba.param_values_for/1`.
 
-      ElixirNba.param_values_for("AheadBehind")
+      Nba.param_values_for("AheadBehind")
       #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
 
