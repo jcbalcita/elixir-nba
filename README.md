@@ -1,5 +1,5 @@
 # ElixirNba
-https://hex.pm/packages/elixir_nba/
+https://hex.pm/packages/nba/
 
   Elixir implementation of bttmly/nba-client-template
 
