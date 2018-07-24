@@ -44,7 +44,8 @@ defmodule Nba.MixProject do
     [
       {:poison, "~> 3.1"},
       {:httpoison, "~> 1.0"},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false}
     ]
   end
 end

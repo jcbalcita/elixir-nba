@@ -9,7 +9,6 @@ defmodule Nba.QueryString do
     "?" <> query_string
   end
 
-  @spec filter_invalid_keys(map(), list(String.t())) :: map()
   defp filter_invalid_keys(parameters, valid_parameters) do
     parameters
     |> Enum.filter(fn {k, _} -> Enum.member?(valid_parameters, k) end)

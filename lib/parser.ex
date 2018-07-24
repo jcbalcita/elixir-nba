@@ -34,7 +34,7 @@ defmodule Nba.Parser do
     |> Enum.into(%{})
   end
 
-  @spec transform_api_response(map()) :: map()
+  @spec transform_api_response({atom(), map()}) :: map()
   def transform_api_response({:ok, json}) do
     json["resultSets"]
     |> Enum.reduce(%{}, fn result_set, acc ->
