@@ -1,5 +1,6 @@
 defmodule Nba.Stats do
   @moduledoc """
+  Provides a function for each stats.nba.com endpoint.
 
   ## Examples
   See what endpoints you can hit:
