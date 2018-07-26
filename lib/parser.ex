@@ -1,41 +1,6 @@
 defmodule Nba.Parser do
   @moduledoc false
 
-  @external_resource json_path = Path.join([__DIR__, "../nba.json"])
-  @nba_map with {:ok, body} <- File.read(json_path),
-                {:ok, json} <- Poison.decode(body),
-                do: json
-  @parameters_by_name Enum.reduce(@nba_map["parameters"], %{}, fn p, acc ->
-                        Map.put(acc, p["name"], p)
-                      end)
-  @endpoints_by_name Enum.reduce(@nba_map["stats_endpoints"], %{}, fn p, acc ->
-                       Map.put(acc, p["name"], p)
-                     end)
-
-  def map, do: @nba_map
-
-  @spec headers :: map()
-  def headers, do: @nba_map["headers"]
-
-  @spec parameters :: list(map())
-  def parameters, do: @nba_map["parameters"]
-
-  @spec params_by_name :: map()
-  def params_by_name, do: @parameters_by_name
-
-  @spec endpoints :: list(map())
-  def endpoints, do: @nba_map["stats_endpoints"]
-
-  @spec endpoints_by_name :: map()
-  def endpoints_by_name, do: @endpoints_by_name
-
-  @spec defaults_for_these_parameters(list(String.t())) :: map()
-  def defaults_for_these_parameters(parameter_names) do
-    parameter_names
-    |> Enum.map(fn name -> {name, @parameters_by_name[name]["default"]} end)
-    |> Enum.into(%{})
-  end
-
   @spec transform_api_response({atom(), map()}) :: map()
   def transform_api_response({:ok, json}) do
     json["resultSets"]
@@ -53,4 +18,54 @@ defmodule Nba.Parser do
   end
 
   def transform_api_response(_), do: %{}
+
+  defmodule Endpoint do
+    @external_resource json_path = Path.join([__DIR__, "../nba.json"])
+    @endpoints with {:ok, body} <- File.read(json_path),
+                    {:ok, json} <- Poison.decode(body),
+                    do: json
+    @params_by_name Enum.reduce(@endpoints["parameters"], %{}, fn p, acc ->
+                      Map.put(acc, p["name"], p)
+                    end)
+    @stats_endpoints_by_name Enum.reduce(@endpoints["stats_endpoints"], %{}, fn p, acc ->
+                               Map.put(acc, p["name"], p)
+                             end)
+
+    @spec headers :: map()
+    def headers, do: @endpoints["headers"]
+
+    @spec parameters :: list(map())
+    def parameters, do: @endpoints["parameters"]
+
+    @spec params_by_name :: map()
+    def params_by_name, do: @params_by_name
+
+    @spec endpoints :: map()
+    def endpoints, do: @endpoints
+
+    @spec endpoints(String.t()) :: list(map())
+    def endpoints(type), do: @endpoints["#{type}_endpoints"]
+
+    @spec endpoints_by_name(String.t()) :: map()
+    def endpoints_by_name("stats"), do: @stats_endpoints_by_name
+    def endpoints_by_name(_), do: @stats_endpoints_by_name
+  end
+
+  defmodule Player do
+    @external_resource json_path = Path.join([__DIR__, "../players.json"])
+    @players with {:ok, body} <- File.read(json_path),
+                  {:ok, json} <- Poison.decode(body),
+                  do: json |> Enum.map(fn p ->
+                    Map.new(p, fn {k, v} -> {Macro.underscore(k), v} end)
+                  end)
+    @players_by_id Enum.reduce(@players, %{}, fn p, acc ->
+                     Map.put(acc, p["player_id"], p)
+                   end)
+
+    @spec players :: list(map())
+    def players, do: @players
+
+    @spec players_by_id :: map()
+    def players_by_id, do: @players_by_id
+  end
 end

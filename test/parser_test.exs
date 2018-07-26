@@ -3,12 +3,30 @@ defmodule ParserTest do
   doctest Nba.Parser
   alias Nba.Parser
 
-  test "can read parameters and endpoints from json file" do
+  test "can read parameters from endpoint json file" do
     # when
-    parameters = Parser.parameters()
-    endpoints = Parser.endpoints()
-    params_by_name = Parser.params_by_name()
-    endpoints_by_name = Parser.endpoints_by_name()
+    parameters = Parser.Endpoint.parameters()
+    params_by_name = Parser.Endpoint.params_by_name()
+
+    # then
+    assert Enum.count(parameters) == 76
+
+    Enum.each(parameters, fn p ->
+      assert Map.has_key?(p, "name") && Map.has_key?(p, "default") && Map.has_key?(p, "values")
+    end)
+
+    Enum.each(parameters, fn p ->
+      assert Map.has_key?(params_by_name, p["name"])
+      assert Map.get(params_by_name, p["name"]) == p
+    end)
+  end
+
+  test "can read stats endpoints from endpoint json file" do
+    # when
+    parameters = Parser.Endpoint.parameters()
+    endpoints = Parser.Endpoint.endpoints("stats")
+    params_by_name = Parser.Endpoint.params_by_name()
+    endpoints_by_name = Parser.Endpoint.endpoints_by_name("stats")
 
     # then
     assert Enum.count(parameters) == 76
@@ -33,9 +51,9 @@ defmodule ParserTest do
     end)
   end
 
-  test "creates headers map from json file" do
+  test "can read headers from endpoint json file" do
     # when
-    headers = Parser.headers()
+    headers = Parser.Endpoint.headers()
 
     # then
     assert headers["Referer"] == "http://stats.nba.com"
@@ -51,25 +69,24 @@ defmodule ParserTest do
              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0"
   end
 
-  test "creates parameter_name -> default_value map from json file" do
-    # given
-    expected = %{
-      "LeagueID" => "00",
-      "SeasonType" => "Regular Season",
-      "PlayerID" => "1"
-    }
-
-    player_info_endpoint =
-      Parser.endpoints()
-      |> Enum.find(fn e -> e["name"] == "player_info" end)
-
-    valid_player_info_parameters = player_info_endpoint["parameters"]
-
+  test "can read players from players json file" do
     # when
-    result = Parser.defaults_for_these_parameters(valid_player_info_parameters)
+    players = Parser.Player.players()
+    players_by_id = Parser.Player.players_by_id()
 
     # then
-    assert result == expected
+    assert Enum.count(players) == 523
+
+    assert Enum.each(players, fn p ->
+             assert Map.has_key?(p, "player_id") && Map.has_key?(p, "first_name") &&
+                      Map.has_key?(p, "last_name") && Map.has_key?(p, "team_id")
+           end)
+
+    Enum.each(players, fn p ->
+      id = p["player_id"]
+      assert Map.has_key?(players_by_id, id)
+      assert players_by_id[id] == p
+    end)
   end
 
   test "correctly parses json from api response" do
@@ -140,10 +157,7 @@ defmodule ParserTest do
 
   test "handles bad responses from api" do
     # given
-    json_response = %{
-      "error" => "what happen"
-    }
-
+    json_response = %{"error" => "what happen"}
     expected = %{}
 
     # when

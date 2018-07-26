@@ -1,7 +1,9 @@
 defmodule Nba.Http do
+  @moduledoc false
+
   alias Nba.Parser
 
-  @headers Parser.headers()
+  @headers Parser.Endpoint.headers()
 
   def get(url) do
     IO.puts("Fetching – #{url}\n")
