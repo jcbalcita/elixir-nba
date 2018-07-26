@@ -20,6 +20,8 @@ defmodule Nba.Parser do
   def transform_api_response(_), do: %{}
 
   defmodule Endpoint do
+    @moduledoc false
+
     @external_resource json_path = Path.join([__DIR__, "../nba.json"])
     @endpoints with {:ok, body} <- File.read(json_path),
                     {:ok, json} <- Poison.decode(body),
@@ -52,6 +54,8 @@ defmodule Nba.Parser do
   end
 
   defmodule Player do
+    @moduledoc false
+
     @external_resource json_path = Path.join([__DIR__, "../players.json"])
     @players with {:ok, body} <- File.read(json_path),
                   {:ok, json} <- Poison.decode(body),

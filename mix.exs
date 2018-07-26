@@ -4,7 +4,7 @@ defmodule Nba.MixProject do
   def project do
     [
       app: :nba,
-      version: "0.1.3",
+      version: "0.2.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -16,7 +16,7 @@ defmodule Nba.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README*", "LICENSE*", "nba.json"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*", "nba.json", "players.json"],
       maintainers: ["John Carlo Aspiras Balcita"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/jcbalcita/elixir-nba"}
