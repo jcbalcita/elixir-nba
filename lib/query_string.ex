@@ -1,4 +1,6 @@
 defmodule Nba.QueryString do
+  @moduledoc false
+
   @spec build(map(), list(String.t())) :: String.t()
   def build(parameter_map, valid_parameters) do
     query_string =
