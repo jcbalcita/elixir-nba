@@ -31,7 +31,7 @@ https://hex.pm/packages/nba/
 
       Nba.Stats.player_info(%{"PlayerID" => "1627742"})
 
-  If you need example values for a query param, use `ElixirNba.param_values_for/1`.
+  If you need example values for a query param, use `Nba.Stats.param_values_for/1`.
 
       Nba.Stats.param_values_for("AheadBehind")
       #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
