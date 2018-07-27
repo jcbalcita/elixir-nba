@@ -22,41 +22,47 @@ defmodule Nba do
 
   You may also pass in a string as an argument.
 
-      Nba.find_player("Steph Curry")
-      [
-        %{
-          "first_name" => "Stephen",
-          "last_name" => "Curry",
-          "player_id" => 201939,
-          "team_id" => 1610612744
-        },
-        %{
-          "first_name" => "Seth",
-          "last_name" => "Curry",
-          "player_id" => 203552,
-          "team_id" => 1610612742
-        }
-      ]
+      Nba.find_player("J Holiday")
+      [%{
+        "first_name" => "Jrue",
+        "last_name" => "Holiday",
+        "player_id" => 201950,
+        "team_id" => 1610612740
+      },
+      %{
+        "first_name" => "Justin",
+        "last_name" => "Holiday",
+        "player_id" => 203200,
+        "team_id" => 1610612741
+      }]
   """
   @spec find_player(list(tuple()) | String.t()) :: list(map())
   def find_player(first_name: first_name) do
     Parser.Player.players()
     |> Enum.filter(fn p ->
-      String.jaro_distance(String.downcase(p["first_name"]), String.downcase(first_name)) > @threshold
+      String.jaro_distance(String.downcase(p["first_name"]), String.downcase(first_name)) >
+        @threshold
     end)
-    |> Enum.sort_by(fn p ->
-      String.jaro_distance(String.downcase(p["first_name"]), String.downcase(first_name))
-    end, &>=/2)
+    |> Enum.sort_by(
+      fn p ->
+        String.jaro_distance(String.downcase(p["first_name"]), String.downcase(first_name))
+      end,
+      &>=/2
+    )
   end
 
   def find_player(last_name: last_name) do
     Parser.Player.players()
     |> Enum.filter(fn p ->
-      String.jaro_distance(String.downcase(p["last_name"]), String.downcase(last_name)) > @threshold
+      String.jaro_distance(String.downcase(p["last_name"]), String.downcase(last_name)) >
+        @threshold
     end)
-    |> Enum.sort_by(fn p ->
-      String.jaro_distance(String.downcase(p["last_name"]), String.downcase(last_name))
-    end, &>=/2)
+    |> Enum.sort_by(
+      fn p ->
+        String.jaro_distance(String.downcase(p["last_name"]), String.downcase(last_name))
+      end,
+      &>=/2
+    )
   end
 
   def find_player(full_name: full_name) do
@@ -65,16 +71,20 @@ defmodule Nba do
       candidate = (p["first_name"] <> " " <> p["last_name"]) |> String.downcase()
       String.jaro_distance(candidate, String.downcase(full_name)) > @threshold
     end)
-    |> Enum.sort_by(fn p ->
-      candidate = (p["first_name"] <> " " <> p["last_name"]) |> String.downcase
-      String.jaro_distance(candidate, String.downcase(full_name))
-    end, &>=/2)
+    |> Enum.sort_by(
+      fn p ->
+        candidate = (p["first_name"] <> " " <> p["last_name"]) |> String.downcase()
+        String.jaro_distance(candidate, String.downcase(full_name))
+      end,
+      &>=/2
+    )
   end
 
   def find_player(name) when is_binary(name) do
     case String.contains?(name, " ") do
       true ->
         find_player(full_name: name)
+
       false ->
         find_player(last_name: name) |> Enum.concat(find_player(first_name: name))
     end
@@ -84,14 +94,13 @@ defmodule Nba do
   Returns a single player that best matches the search,
   or nil if no match was found.
 
-      iex>
-      Nba.find_player!("Steph Curry")
+      Nba.find_player!("J Holiday")
       %{
-          "first_name" => "Stephen",
-          "last_name" => "Curry",
-          "player_id" => 201939,
-          "team_id" => 1610612744
-        }
+        "first_name" => "Jrue",
+        "last_name" => "Holiday",
+        "player_id" => 201950,
+        "team_id" => 1610612740
+      }
   """
   @spec find_player!(list(tuple()) | String.t()) :: map() | nil
   def find_player!(first_name: first_name) do
