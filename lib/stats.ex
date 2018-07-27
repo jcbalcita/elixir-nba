@@ -23,7 +23,7 @@ defmodule Nba.Stats do
       Nba.Stats.player_info(%{"PlayerID" => "1627742"})
 
   If you need example values for a query param, use
-  `Nba.param_values_for/1`.
+  `Nba.Stats.param_values_for/1`.
 
       Nba.Stats.param_values_for("AheadBehind")
       #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
@@ -47,7 +47,7 @@ defmodule Nba.Stats do
     end
 
     @spec unquote(:"#{name}")(map()) :: map()
-    def unquote(:"#{name}")(user_input) do
+    def unquote(:"#{name}")(user_input_map) do
       endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
       endpoint = Parser.Endpoint.endpoints_by_name("stats")[endpoint_name]
       url = endpoint["url"]
@@ -55,7 +55,7 @@ defmodule Nba.Stats do
 
       query_string =
         defaults_for_these_parameters(valid_params)
-        |> Map.merge(user_input)
+        |> Map.merge(user_input_map)
         |> QueryString.build(valid_params)
 
       (url <> query_string)
