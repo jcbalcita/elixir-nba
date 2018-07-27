@@ -13,43 +13,30 @@ defmodule Nba do
   @doc """
   Returns a list of players sorted by best match.
 
-  You can pass in key-value pairs for
-  - first name
-  - last name
-  - full name
+  You can pass in a single key-value pair for first name, last name,
+  or full name.
 
       Nba.find_player(first_name: "brandn")
-      => [
-          %{
-            "first_name" => "Brandon",
-            "last_name" => "Ingram",
-            "player_id" => 1627742,
-            "team_id" => 1610612747
-          },
-          %{
-            "first_name" => "Brandon",
-            "last_name" => "Knight",
-            "player_id" => 202688,
-            "team_id" => 1610612756
-          }, ...]
+      Nba.find_player(last_name: "ingram")
+      Nba.find_player(full_name: "brandon ingram")
 
-    You may also pass in a string as an argument
+  You may also pass in a string as an argument.
 
-        Nba.find_player("Steph Curry")
-        =>[
-          %{
-            "first_name" => "Stephen",
-            "last_name" => "Curry",
-            "player_id" => 201939,
-            "team_id" => 1610612744
-          },
-          %{
-            "first_name" => "Seth",
-            "last_name" => "Curry",
-            "player_id" => 203552,
-            "team_id" => 1610612742
-          }
-          ]
+      Nba.find_player("Steph Curry")
+      [
+        %{
+          "first_name" => "Stephen",
+          "last_name" => "Curry",
+          "player_id" => 201939,
+          "team_id" => 1610612744
+        },
+        %{
+          "first_name" => "Seth",
+          "last_name" => "Curry",
+          "player_id" => 203552,
+          "team_id" => 1610612742
+        }
+      ]
   """
   @spec find_player(list(tuple()) | String.t()) :: list(map())
   def find_player(first_name: first_name) do
@@ -84,15 +71,28 @@ defmodule Nba do
     end, &>=/2)
   end
 
-  def find_player(string) when is_binary(string) do
-    case String.contains?(string, " ") do
+  def find_player(name) when is_binary(name) do
+    case String.contains?(name, " ") do
       true ->
-        find_player(full_name: string)
+        find_player(full_name: name)
       false ->
-        find_player(last_name: string) |> Enum.concat(find_player(first_name: string))
+        find_player(last_name: name) |> Enum.concat(find_player(first_name: name))
     end
   end
 
+  @doc """
+  Returns a single player that best matches the search,
+  or nil if no match was found.
+
+      iex>
+      Nba.find_player!("Steph Curry")
+      %{
+          "first_name" => "Stephen",
+          "last_name" => "Curry",
+          "player_id" => 201939,
+          "team_id" => 1610612744
+        }
+  """
   @spec find_player!(list(tuple()) | String.t()) :: map() | nil
   def find_player!(first_name: first_name) do
     find_player(first_name: first_name) |> List.first()
@@ -106,7 +106,7 @@ defmodule Nba do
     find_player(full_name: full_name) |> List.first()
   end
 
-  def find_player!(string) when is_binary(string) do
-    find_player(string) |> List.first()
+  def find_player!(name) when is_binary(name) do
+    find_player(name) |> List.first()
   end
 end
