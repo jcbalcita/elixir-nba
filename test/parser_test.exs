@@ -1,4 +1,4 @@
-defmodule ParserTest do
+defmodule Nba.ParserTest do
   use ExUnit.Case
   doctest Nba.Parser
   alias Nba.Parser
