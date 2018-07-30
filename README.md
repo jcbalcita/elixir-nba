@@ -1,5 +1,14 @@
 # ElixirNba
-https://hex.pm/packages/nba/
+  https://hex.pm/packages/nba/
+
+First, add NBA to your mix.exs dependencies:
+
+```
+def deps do
+  [{:nba, "~> 0.2.3"}]
+end
+```
+
 
   Elixir implementation of bttmly/nba-client-template
 
