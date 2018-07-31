@@ -3,12 +3,12 @@ defmodule Nba.Parser do
 
   @spec transform_api_response({atom(), map()}) :: map()
   def transform_api_response({:ok, json}) do
-    results_key = case json["resultSets"] do
-      nil -> "resultSet"
-      _ -> "resultSets"
+    result_sets = case json["resultSets"] do
+      nil -> [json["resultSet"]]
+      _ -> json["resultSets"]
     end
 
-    json[results_key]
+    result_sets
     |> Enum.reduce(%{}, fn result_set, acc ->
       name = result_set["name"]
 
