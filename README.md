@@ -45,7 +45,7 @@
   key/values.
 
   ```elixir
-  Nba.Stats.player_info(%{"PlayerID" => "1627742"})
+  Nba.Stats.player_info(%{"PlayerID" => 1627742})
   ```
 
   If you need example values for a query param, use `Nba.Stats.param_values_for/1`.
