@@ -3,10 +3,11 @@ defmodule Nba.Parser do
 
   @spec transform_api_response({atom(), map()}) :: map()
   def transform_api_response({:ok, json}) do
-    result_sets = case json["resultSets"] do
-      nil -> [json["resultSet"]]
-      _ -> json["resultSets"]
-    end
+    result_sets =
+      case json["resultSets"] do
+        nil -> [json["resultSet"]]
+        _ -> json["resultSets"]
+      end
 
     result_sets
     |> Enum.reduce(%{}, fn result_set, acc ->
@@ -64,9 +65,11 @@ defmodule Nba.Parser do
     @external_resource json_path = Path.join([__DIR__, "../players.json"])
     @players with {:ok, body} <- File.read(json_path),
                   {:ok, json} <- Poison.decode(body),
-                  do: json |> Enum.map(fn p ->
-                    Map.new(p, fn {k, v} -> {Macro.underscore(k), v} end)
-                  end)
+                  do:
+                    json
+                    |> Enum.map(fn p ->
+                      Map.new(p, fn {k, v} -> {Macro.underscore(k), v} end)
+                    end)
     @players_by_id Enum.reduce(@players, %{}, fn p, acc ->
                      Map.put(acc, p["player_id"], p)
                    end)

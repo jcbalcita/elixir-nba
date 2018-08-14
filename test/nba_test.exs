@@ -37,9 +37,10 @@ defmodule Nba.NbaTest do
     expected = %{
       "first_name" => "Jrue",
       "last_name" => "Holiday",
-      "player_id" => 201950,
-      "team_id" => 1610612740
+      "player_id" => 201_950,
+      "team_id" => 1_610_612_740
     }
+
     # when
     result = Nba.find_player!("J Holiday")
     # then

@@ -80,7 +80,7 @@ defmodule Nba.Stats do
   @spec defaults_for_these_parameters(list(String.t())) :: map()
   defp defaults_for_these_parameters(parameter_names) do
     parameter_names
-    |> Enum.map(fn name -> {name, Parser.Endpoint.params_by_name[name]["default"]} end)
+    |> Enum.map(fn name -> {name, Parser.Endpoint.params_by_name()[name]["default"]} end)
     |> Enum.into(%{})
   end
 end
