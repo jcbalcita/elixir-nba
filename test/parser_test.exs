@@ -56,9 +56,9 @@ defmodule Nba.ParserTest do
     headers = Parser.Endpoint.headers()
 
     # then
-    assert headers["Referer"] == "http://stats.nba.com"
-    assert headers["Referrer"] == "http://stats.nba.com"
-    assert headers["Origin"] == "http://stats.nba.com"
+    assert headers["Referer"] == "https://stats.nba.com/scores/"
+    assert headers["Referrer"] == "https://stats.nba.com/scores/"
+    assert headers["Origin"] == "https://stats.nba.com"
     assert headers["Accept-Encoding"] == "gzip, deflate"
     assert headers["Accept-Language"] == "en-US"
     assert headers["Accept"] == "*/*"
@@ -75,7 +75,7 @@ defmodule Nba.ParserTest do
     players_by_id = Parser.Player.players_by_id()
 
     # then
-    assert Enum.count(players) == 523
+    assert Enum.count(players) == 576
 
     assert Enum.each(players, fn p ->
              assert Map.has_key?(p, "player_id") && Map.has_key?(p, "first_name") &&
