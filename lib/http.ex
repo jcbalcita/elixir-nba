@@ -13,12 +13,9 @@ defmodule Nba.Http do
         {:ok, handle_response(body, headers)}
 
       {:ok, %HTTPoison.Response{status_code: status_code, body: body}} ->
-        IO.puts("Oops! Status code: #{status_code}")
-        IO.puts(body)
         {:error, body}
 
       {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.puts("Uh oh! #{reason}")
         {:error, reason}
     end
   end

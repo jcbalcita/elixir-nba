@@ -66,8 +66,7 @@ defmodule Nba.Parser do
     @players with {:ok, body} <- File.read(json_path),
                   {:ok, json} <- Poison.decode(body),
                   do:
-                    json
-                    |> Enum.map(fn p ->
+                    Enum.map(json, fn p ->
                       Map.new(p, fn {k, v} -> {Macro.underscore(k), v} end)
                     end)
     @players_by_id Enum.reduce(@players, %{}, fn p, acc ->
