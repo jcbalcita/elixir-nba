@@ -12,7 +12,7 @@ defmodule Nba.Http do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: headers}} ->
         {:ok, handle_response(body, headers)}
 
-      {:ok, %HTTPoison.Response{status_code: status_code, body: body}} ->
+      {:ok, %HTTPoison.Response{body: body}} ->
         {:error, body}
 
       {:error, %HTTPoison.Error{reason: reason}} ->
