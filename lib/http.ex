@@ -35,12 +35,14 @@ defmodule Nba.Http do
   end
 
   defmodule Stats do
+    @moduledoc false
     @headers Parser.stats_headers()
 
     def get(url), do: Nba.Http.get(url, @headers)
   end
 
   defmodule Data do
+    @moduledoc false
     @headers Parser.data_headers()
 
     def get(url), do: Nba.Http.get(url, @headers)
