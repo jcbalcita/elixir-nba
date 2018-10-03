@@ -1,4 +1,4 @@
-defmodule Nba.FakeHttp do
+defmodule Nba.FakeHttp.Stats do
   @result %{
     "resource" => "leagueleaders",
     "parameters" => %{
