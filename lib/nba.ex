@@ -67,7 +67,9 @@ defmodule Nba do
 
   def find_player(full_name: full_name) do
     Parser.Player.players()
-    |> Enum.filter(fn p -> String.jaro_distance(p["downcase_name"], String.downcase(full_name)) > @threshold end)
+    |> Enum.filter(fn p ->
+      String.jaro_distance(p["downcase_name"], String.downcase(full_name)) > @threshold
+    end)
     |> Enum.sort_by(
       fn p -> String.jaro_distance(p["downcase_name"], String.downcase(full_name)) end,
       &>=/2
