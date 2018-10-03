@@ -1,12 +1,12 @@
-defmodule Nba.ParserTest do
+defmodule Nba.Parser.StatsTest do
   use ExUnit.Case
-  doctest Nba.Parser
+  doctest Nba.Parser.Stats
   alias Nba.Parser
 
   test "can read parameters from endpoint json file" do
     # when
-    parameters = Parser.Endpoint.parameters()
-    params_by_name = Parser.Endpoint.params_by_name()
+    parameters = Parser.Stats.parameters()
+    params_by_name = Parser.Stats.params_by_name()
 
     # then
     assert Enum.count(parameters) == 76
@@ -23,10 +23,10 @@ defmodule Nba.ParserTest do
 
   test "can read stats endpoints from endpoint json file" do
     # when
-    parameters = Parser.Endpoint.parameters()
-    endpoints = Parser.Endpoint.endpoints("stats")
-    params_by_name = Parser.Endpoint.params_by_name()
-    endpoints_by_name = Parser.Endpoint.endpoints_by_name("stats")
+    parameters = Parser.Stats.parameters()
+    endpoints = Parser.Stats.endpoints("stats")
+    params_by_name = Parser.Stats.params_by_name()
+    endpoints_by_name = Parser.Stats.endpoints_by_name("stats")
 
     # then
     assert Enum.count(parameters) == 76
@@ -48,44 +48,6 @@ defmodule Nba.ParserTest do
     Enum.each(endpoints, fn e ->
       assert Map.has_key?(endpoints_by_name, e["name"])
       assert Map.get(endpoints_by_name, e["name"]) == e
-    end)
-  end
-
-  test "can read headers from endpoint json file" do
-    # when
-    headers = Parser.Endpoint.headers()
-
-    # then
-    assert headers["Referer"] == "https://stats.nba.com/scores/"
-    assert headers["Referrer"] == "https://stats.nba.com/scores/"
-    assert headers["Origin"] == "https://stats.nba.com"
-    assert headers["Accept-Encoding"] == "gzip, deflate"
-    assert headers["Accept-Language"] == "en-US"
-    assert headers["Accept"] == "*/*"
-    assert headers["Connection"] == "keep-alive"
-    assert headers["Cache-Control"] == "no-cache"
-
-    assert headers["User-Agent"] ==
-             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0"
-  end
-
-  test "can read players from players json file" do
-    # when
-    players = Parser.Player.players()
-    players_by_id = Parser.Player.players_by_id()
-
-    # then
-    assert Enum.count(players) == 576
-
-    assert Enum.each(players, fn p ->
-             assert Map.has_key?(p, "player_id") && Map.has_key?(p, "first_name") &&
-                      Map.has_key?(p, "last_name") && Map.has_key?(p, "team_id")
-           end)
-
-    Enum.each(players, fn p ->
-      id = p["player_id"]
-      assert Map.has_key?(players_by_id, id)
-      assert players_by_id[id] == p
     end)
   end
 
@@ -149,7 +111,7 @@ defmodule Nba.ParserTest do
     }
 
     # when
-    result = Parser.transform_api_response({:ok, json_response})
+    result = Parser.Stats.transform_api_response({:ok, json_response})
 
     # then
     assert result == expected
@@ -161,7 +123,7 @@ defmodule Nba.ParserTest do
     expected = %{}
 
     # when
-    result = Parser.transform_api_response({:error, json_response})
+    result = Parser.Stats.transform_api_response({:error, json_response})
 
     # then
     assert result == expected

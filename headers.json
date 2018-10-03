@@ -1,0 +1,20 @@
+{
+  "common_headers" : {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-US",
+    "Accept": "*/*",
+    "Connection": "keep-alive",
+    "Cache-Control": "no-cache"
+  },
+  "stats_headers": {
+    "Referrer": "https://stats.nba.com/scores/",
+    "Referer": "https://stats.nba.com/scores/",
+    "Origin": "https://stats.nba.com"
+  },
+  "data_headers": {
+    "Referrer": "https://data.nba.com/",
+    "Referer": "https://data.nba.com/",
+    "Origin": "https://data.nba.com"
+  }
+}
