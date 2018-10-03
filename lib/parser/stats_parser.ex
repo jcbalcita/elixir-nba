@@ -12,9 +12,6 @@ defmodule Nba.Parser.Stats do
                                Map.put(acc, p["name"], p)
                              end)
 
-    @spec headers :: map()
-    def headers, do: @endpoints["stats_headers"]
-
     @spec parameters :: list(map())
     def parameters, do: @endpoints["parameters"]
 
