@@ -34,14 +34,14 @@ defmodule Nba.Stats do
 
   def http, do: Application.get_env(:nba, :http, Nba.Http.Stats)
 
-  Parser.Stats.endpoints("stats")
+  Parser.Stats.endpoints()
   |> Enum.each(fn endpoint ->
     name = endpoint["name"]
 
     @spec unquote(:"#{name}")() :: list(String.t())
     def unquote(:"#{name}")() do
       endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
-      endpoint = Parser.Stats.endpoints_by_name("stats")[endpoint_name]
+      endpoint = Parser.Stats.endpoints_by_name()[endpoint_name]
 
       endpoint["parameters"]
     end
@@ -49,7 +49,7 @@ defmodule Nba.Stats do
     @spec unquote(:"#{name}")(map()) :: map()
     def unquote(:"#{name}")(user_input_map) do
       endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
-      endpoint = Parser.Stats.endpoints_by_name("stats")[endpoint_name]
+      endpoint = Parser.Stats.endpoints_by_name()[endpoint_name]
       url = endpoint["url"]
       valid_params = endpoint["parameters"]
 

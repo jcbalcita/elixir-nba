@@ -24,9 +24,9 @@ defmodule Nba.Parser.StatsTest do
   test "can read stats endpoints from endpoint json file" do
     # when
     parameters = Parser.Stats.parameters()
-    endpoints = Parser.Stats.endpoints("stats")
+    endpoints = Parser.Stats.endpoints()
     params_by_name = Parser.Stats.params_by_name()
-    endpoints_by_name = Parser.Stats.endpoints_by_name("stats")
+    endpoints_by_name = Parser.Stats.endpoints_by_name()
 
     # then
     assert Enum.count(parameters) == 76

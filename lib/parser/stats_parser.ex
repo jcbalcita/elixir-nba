@@ -19,14 +19,10 @@ defmodule Nba.Parser.Stats do
   def params_by_name, do: @params_by_name
 
   @spec endpoints :: map()
-  def endpoints, do: @endpoints
+  def endpoints, do: @endpoints["stats_endpoints"]
 
-  @spec endpoints(String.t()) :: list(map())
-  def endpoints(type), do: @endpoints["#{type}_endpoints"]
-
-  @spec endpoints_by_name(String.t()) :: map()
-  def endpoints_by_name("stats"), do: @endpoints_by_name
-  def endpoints_by_name(_), do: @endpoints_by_name
+  @spec endpoints_by_name :: map()
+  def endpoints_by_name(), do: @endpoints_by_name
 
   @spec transform_api_response({atom(), map()}) :: map()
   def transform_api_response({:ok, json}) do
