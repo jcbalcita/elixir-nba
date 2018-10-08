@@ -38,9 +38,7 @@ defmodule Nba.NbaTest do
       "first_name" => "Jrue",
       "last_name" => "Holiday",
       "player_id" => 201_950,
-      "team_id" => 1_610_612_740,
-      "downcase_name" => "jrue holiday",
-      "full_name" => "Jrue Holiday"
+      "team_id" => 1_610_612_740
     }
 
     # when

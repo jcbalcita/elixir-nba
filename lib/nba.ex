@@ -68,10 +68,10 @@ defmodule Nba do
   def find_player(full_name: full_name) do
     Parser.Player.players()
     |> Enum.filter(fn p ->
-      String.jaro_distance(p["downcase_name"], String.downcase(full_name)) > @threshold
+      String.jaro_distance(downcase_full_name(p), String.downcase(full_name)) > @threshold
     end)
     |> Enum.sort_by(
-      fn p -> String.jaro_distance(p["downcase_name"], String.downcase(full_name)) end,
+      fn p -> String.jaro_distance(downcase_full_name(p), String.downcase(full_name)) end,
       &>=/2
     )
   end
@@ -113,5 +113,10 @@ defmodule Nba do
 
   def find_player!(name) when is_binary(name) do
     find_player(name) |> List.first()
+  end
+
+  defp downcase_full_name(player) do
+    (player["first_name"] <> " " <> player["last_name"])
+    |> String.downcase()
   end
 end

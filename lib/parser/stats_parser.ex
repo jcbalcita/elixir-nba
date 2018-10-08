@@ -1,7 +1,7 @@
 defmodule Nba.Parser.Stats do
   @moduledoc false
 
-  @external_resource json_path = Path.join([__DIR__, "../../nba.json"])
+  @external_resource json_path = Path.join([__DIR__, "../../data/nba.json"])
   @endpoints with {:ok, body} <- File.read(json_path),
                   {:ok, json} <- Poison.decode(body),
                   do: json
