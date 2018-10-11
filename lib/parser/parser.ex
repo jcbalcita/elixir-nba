@@ -12,5 +12,4 @@ defmodule Nba.Parser do
 
   def stats_headers, do: @stats_headers
   def data_headers, do: @data_headers
-
 end
