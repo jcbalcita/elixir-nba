@@ -32,7 +32,7 @@ defmodule Nba.Stats do
   alias Nba.Parser
   alias Nba.QueryString
 
-  def http, do: Application.get_env(:nba, :http, Nba.Http.Stats)
+  def http, do: Application.get_env(:nba, :http_stats, Nba.Http.Stats)
 
   Parser.Stats.endpoints()
   |> Enum.each(fn endpoint ->

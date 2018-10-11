@@ -1,0 +1,528 @@
+{
+  "lscd": [{
+    "mscd": {
+      "mon": "September",
+      "g": [{
+        "gid": "0011800001",
+        "gcode": "20180928/MELPHI",
+        "seri": "",
+        "is": 1,
+        "gdte": "2018-09-28",
+        "htm": "2018-09-28T19:00:00",
+        "vtm": "2018-09-29T09:00:00",
+        "etm": "2018-09-28T19:00:00",
+        "an": "Wells Fargo Center",
+        "ac": "Philadelphia",
+        "as": "PA",
+        "st": "3",
+        "stt": "Final",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "NBCSP+",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 15016,
+          "re": "0-1",
+          "ta": "MEL",
+          "tn": "United",
+          "tc": "Melbourne",
+          "s": "84"
+        },
+        "h": {
+          "tid": 1610612755,
+          "re": "1-0",
+          "ta": "PHI",
+          "tn": "76ers",
+          "tc": "Philadelphia",
+          "s": "104"
+        },
+        "gweek": null,
+        "gdtutc": "2018-09-28",
+        "utctm": "23:00",
+        "ppdst": "I",
+        "ptsls": {
+          "pl": [{
+            "pid": "203954",
+            "fn": "Joel",
+            "ln": "Embiid",
+            "val": "20",
+            "tid": 1610612755,
+            "ta": "PHI",
+            "tn": "76ers",
+            "tc": "Philadelphia"
+          }]
+        },
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "October",
+      "g": [{
+        "gid": "0011800012",
+        "gcode": "20181001/ORLPHI",
+        "seri": "",
+        "is": 1,
+        "gdte": "2018-10-01",
+        "htm": "2018-10-01T19:00:00",
+        "vtm": "2018-10-01T19:00:00",
+        "etm": "2018-10-01T19:00:00",
+        "an": "Wells Fargo Center",
+        "ac": "Philadelphia",
+        "as": "PA",
+        "st": "3",
+        "stt": "Final",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "NBA TV",
+            "scope": "natl",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "NBCSP",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 3,
+            "disp": "NBA TV Canada",
+            "scope": "can",
+            "type": "tv",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612753,
+          "re": "0-1",
+          "ta": "ORL",
+          "tn": "Magic",
+          "tc": "Orlando",
+          "s": "114"
+        },
+        "h": {
+          "tid": 1610612755,
+          "re": "2-0",
+          "ta": "PHI",
+          "tn": "76ers",
+          "tc": "Philadelphia",
+          "s": "120"
+        },
+        "gweek": null,
+        "gdtutc": "2018-10-01",
+        "utctm": "23:00",
+        "ppdst": "I",
+        "ptsls": {
+          "pl": [{
+            "pid": "203954",
+            "fn": "Joel",
+            "ln": "Embiid",
+            "val": "21",
+            "tid": 1610612755,
+            "ta": "PHI",
+            "tn": "76ers",
+            "tc": "Philadelphia"
+          }]
+        },
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "November",
+      "g": [{
+        "gid": "0021800111",
+        "gcode": "20181101/OKCCHA",
+        "seri": "",
+        "is": 1,
+        "gdte": "2018-11-01",
+        "htm": "2018-11-01T19:00:00",
+        "vtm": "2018-11-01T18:00:00",
+        "etm": "2018-11-01T19:00:00",
+        "an": "Spectrum Center",
+        "ac": "Charlotte",
+        "as": "NC",
+        "st": "1",
+        "stt": "7:00 pm ET",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "Fox Sports Southeast - Charlotte",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "Fox Sports Oklahoma",
+            "scope": "away",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 3,
+            "disp": "WWLS 98.1FM OKC",
+            "scope": "away",
+            "type": "radio",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612760,
+          "re": "0-0",
+          "ta": "OKC",
+          "tn": "Thunder",
+          "tc": "Oklahoma City",
+          "s": ""
+        },
+        "h": {
+          "tid": 1610612766,
+          "re": "0-0",
+          "ta": "CHA",
+          "tn": "Hornets",
+          "tc": "Charlotte",
+          "s": ""
+        },
+        "gweek": 3,
+        "gdtutc": "2018-11-01",
+        "utctm": "23:00",
+        "ppdst": "I",
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "December",
+      "g": [{
+        "gid": "0021800330",
+        "gcode": "20181201/MILNYK",
+        "seri": "",
+        "is": 1,
+        "gdte": "2018-12-01",
+        "htm": "2018-12-01T17:00:00",
+        "vtm": "2018-12-01T16:00:00",
+        "etm": "2018-12-01T17:00:00",
+        "an": "Madison Square Garden",
+        "ac": "New York",
+        "as": "NY",
+        "st": "1",
+        "stt": "5:00 pm ET",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "MSG",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "Fox Sports Wisconsin",
+            "scope": "away",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 3,
+            "disp": "ESPN NY 98.7",
+            "scope": "home",
+            "type": "radio",
+            "lan": "English"
+          }, {
+            "seq": 4,
+            "disp": "620 AM/103.3 FM WTMJ",
+            "scope": "away",
+            "type": "radio",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612749,
+          "re": "0-0",
+          "ta": "MIL",
+          "tn": "Bucks",
+          "tc": "Milwaukee",
+          "s": ""
+        },
+        "h": {
+          "tid": 1610612752,
+          "re": "0-0",
+          "ta": "NYK",
+          "tn": "Knicks",
+          "tc": "New York",
+          "s": ""
+        },
+        "gweek": 7,
+        "gdtutc": "2018-12-01",
+        "utctm": "22:00",
+        "ppdst": "I",
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "January",
+      "g": [{
+        "gid": "0021800549",
+        "gcode": "20190101/UTATOR",
+        "seri": "",
+        "is": 1,
+        "gdte": "2019-01-01",
+        "htm": "2019-01-01T19:30:00",
+        "vtm": "2019-01-01T17:30:00",
+        "etm": "2019-01-01T19:30:00",
+        "an": "Scotiabank Arena",
+        "ac": "Toronto",
+        "as": "ON",
+        "st": "1",
+        "stt": "7:30 pm ET",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "NBA TV",
+            "scope": "natl",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "Sportsnet One",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 3,
+            "disp": "AT&T Sportsnet - Rocky Mountain",
+            "scope": "away",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 4,
+            "disp": "Sportsnet One",
+            "scope": "can",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 5,
+            "disp": "TSN Radio 1050 Toronto",
+            "scope": "home",
+            "type": "radio",
+            "lan": "English"
+          }, {
+            "seq": 6,
+            "disp": "97.5 FM | 1280 AM The Zone",
+            "scope": "away",
+            "type": "radio",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612762,
+          "re": "0-0",
+          "ta": "UTA",
+          "tn": "Jazz",
+          "tc": "Utah",
+          "s": ""
+        },
+        "h": {
+          "tid": 1610612761,
+          "re": "0-0",
+          "ta": "TOR",
+          "tn": "Raptors",
+          "tc": "Toronto",
+          "s": ""
+        },
+        "gweek": 12,
+        "gdtutc": "2019-01-02",
+        "utctm": "00:30",
+        "ppdst": "I",
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "February",
+      "g": [{
+        "gid": "0021800770",
+        "gcode": "20190201/MEMCHA",
+        "seri": "",
+        "is": 1,
+        "gdte": "2019-02-01",
+        "htm": "2019-02-01T19:00:00",
+        "vtm": "2019-02-01T18:00:00",
+        "etm": "2019-02-01T19:00:00",
+        "an": "Spectrum Center",
+        "ac": "Charlotte",
+        "as": "NC",
+        "st": "1",
+        "stt": "7:00 pm ET",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "Fox Sports Southeast - Charlotte",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "Fox Sports Southeast - Memphis",
+            "scope": "away",
+            "type": "tv",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612763,
+          "re": "0-0",
+          "ta": "MEM",
+          "tn": "Grizzlies",
+          "tc": "Memphis",
+          "s": ""
+        },
+        "h": {
+          "tid": 1610612766,
+          "re": "0-0",
+          "ta": "CHA",
+          "tn": "Hornets",
+          "tc": "Charlotte",
+          "s": ""
+        },
+        "gweek": 16,
+        "gdtutc": "2019-02-02",
+        "utctm": "00:00",
+        "ppdst": "I",
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "March",
+      "g": [{
+        "gid": "0021800928",
+        "gcode": "20190301/CHIATL",
+        "seri": "",
+        "is": 1,
+        "gdte": "2019-03-01",
+        "htm": "2019-03-01T19:30:00",
+        "vtm": "2019-03-01T18:30:00",
+        "etm": "2019-03-01T19:30:00",
+        "an": "State Farm Arena",
+        "ac": "Atlanta",
+        "as": "GA",
+        "st": "1",
+        "stt": "7:30 pm ET",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "Fox Sports Southeast - Atlanta",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "NBCSCH",
+            "scope": "away",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 3,
+            "disp": "WSCR-AM 670 / UNIVISION CHICAGO 1200 AM",
+            "scope": "away",
+            "type": "radio",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612741,
+          "re": "0-0",
+          "ta": "CHI",
+          "tn": "Bulls",
+          "tc": "Chicago",
+          "s": ""
+        },
+        "h": {
+          "tid": 1610612737,
+          "re": "0-0",
+          "ta": "ATL",
+          "tn": "Hawks",
+          "tc": "Atlanta",
+          "s": ""
+        },
+        "gweek": 20,
+        "gdtutc": "2019-03-02",
+        "utctm": "00:30",
+        "ppdst": "I",
+        "seq": 1
+      }]
+    }
+  }, {
+    "mscd": {
+      "mon": "April",
+      "g": [{
+        "gid": "0021801152",
+        "gcode": "20190401/DETIND",
+        "seri": "",
+        "is": 1,
+        "gdte": "2019-04-01",
+        "htm": "2019-04-01T19:00:00",
+        "vtm": "2019-04-01T19:00:00",
+        "etm": "2019-04-01T19:00:00",
+        "an": "Bankers Life Fieldhouse",
+        "ac": "Indianapolis",
+        "as": "IN",
+        "st": "1",
+        "stt": "7:00 pm ET",
+        "bd": {
+          "b": [{
+            "seq": 1,
+            "disp": "Fox Sports Indiana",
+            "scope": "home",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 2,
+            "disp": "Fox Sports Detroit",
+            "scope": "away",
+            "type": "tv",
+            "lan": "English"
+          }, {
+            "seq": 3,
+            "disp": "1070 The Fan/107.5 FM",
+            "scope": "home",
+            "type": "radio",
+            "lan": "English"
+          }, {
+            "seq": 4,
+            "disp": "97.1 FM or 950 AM",
+            "scope": "away",
+            "type": "radio",
+            "lan": "English"
+          }]
+        },
+        "v": {
+          "tid": 1610612765,
+          "re": "0-0",
+          "ta": "DET",
+          "tn": "Pistons",
+          "tc": "Detroit",
+          "s": ""
+        },
+        "h": {
+          "tid": 1610612754,
+          "re": "0-0",
+          "ta": "IND",
+          "tn": "Pacers",
+          "tc": "Indiana",
+          "s": ""
+        },
+        "gweek": 25,
+        "gdtutc": "2019-04-01",
+        "utctm": "23:00",
+        "ppdst": "I",
+        "seq": 1
+      }]
+    }
+  }],
+  "lws": []
+}

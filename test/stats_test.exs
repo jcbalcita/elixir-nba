@@ -1,9 +1,9 @@
-defmodule NbaTest.Stats do
+defmodule Nba.StatsTest do
   use ExUnit.Case
   alias Nba.Parser
   doctest Nba.Stats
 
-  Application.put_env(:nba, :http, Nba.FakeHttp.Stats)
+  Application.put_env(:nba, :http_stats, Nba.FakeHttp.Stats)
 
   test "creates functions for each endpoint" do
     Parser.Stats.endpoints_by_name()
