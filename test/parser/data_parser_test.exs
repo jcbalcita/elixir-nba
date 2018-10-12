@@ -22,11 +22,11 @@ defmodule Nba.Parser.DataTest do
     Enum.each(actual, fn {_, games_list} ->
       Enum.each(games_list, fn game ->
         assert(games_list |> is_list)
-        Map.has_key?(game, "gid")
-        Map.has_key?(game, "h")
-        Map.has_key?(game, "v")
-        Map.has_key?(game, "etm")
-        Map.has_key?(game, "gdtutc")
+        assert(Map.has_key?(game, "gid"))
+        assert(Map.has_key?(game, "h"))
+        assert(Map.has_key?(game, "v"))
+        assert(Map.has_key?(game, "etm"))
+        assert(Map.has_key?(game, "gdtutc"))
       end)
     end)
   end
