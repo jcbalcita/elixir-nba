@@ -6,7 +6,7 @@ defmodule Nba.Data do
   defp http, do: Application.get_env(:nba, :http_data, Nba.Http.Data)
 
   @doc """
-  Returns a map keyed by months. The map's values are a list of games scheduled in the corresponding month.
+  Returns a map keyed by month name – the map's values are a list of games scheduled in the corresponding month
   """
   @spec full_year_schedule :: map()
   def full_year_schedule do
