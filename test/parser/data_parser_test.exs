@@ -30,4 +30,13 @@ defmodule Nba.Parser.DataTest do
       end)
     end)
   end
+
+  test "returns empty map when api call fails" do
+    # given
+    error_response = Nba.FakeHttp.Data.get("bad url!")
+    # when
+    actual = Parser.Data.transform_schedule_response(error_response)
+    # then
+    assert(%{} == actual)
+  end
 end
