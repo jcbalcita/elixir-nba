@@ -9,7 +9,7 @@ defmodule Nba.FakeHttp.Data do
       %URI{scheme: nil} -> {:error, "bad url"}
       %URI{host: nil} -> {:error, "bad url"}
       %URI{path: nil} -> {:error, "bad url"}
-      _ -> {:ok, @result}
+      _ -> {:ok, @response}
     end
   end
 end

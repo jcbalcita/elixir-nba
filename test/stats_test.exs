@@ -6,6 +6,7 @@ defmodule Nba.StatsTest do
   Application.put_env(:nba, :http_stats, Nba.FakeHttp.Stats)
 
   test "creates functions for each endpoint" do
+
     Parser.Stats.endpoints_by_name()
     |> Map.keys()
     |> Enum.each(fn endpoint_name ->
