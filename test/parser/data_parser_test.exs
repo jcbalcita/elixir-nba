@@ -8,7 +8,9 @@ defmodule Nba.Parser.DataTest do
   test "parses full-year-schedule correctly" do
     # given
     response = Nba.FakeHttp.Data.get("https://data.nba.com/data/schedule")
-    expected_keys = ~w(September October November December January February March April) |> MapSet.new()
+
+    expected_keys =
+      ~w(September October November December January February March April) |> MapSet.new()
 
     # when
     actual = Parser.Data.transform_schedule_response(response)
@@ -20,13 +22,12 @@ defmodule Nba.Parser.DataTest do
     Enum.each(actual, fn {_, games_list} ->
       Enum.each(games_list, fn game ->
         assert(games_list |> is_list)
-        Map.has_key? game, "gid"
-        Map.has_key? game, "h"
-        Map.has_key? game, "v"
-        Map.has_key? game, "etm"
-        Map.has_key? game, "gdtutc"
+        Map.has_key?(game, "gid")
+        Map.has_key?(game, "h")
+        Map.has_key?(game, "v")
+        Map.has_key?(game, "etm")
+        Map.has_key?(game, "gdtutc")
       end)
     end)
   end
-
 end
