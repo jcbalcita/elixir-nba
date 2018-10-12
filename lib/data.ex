@@ -3,8 +3,12 @@ defmodule Nba.Data do
 
   @schedule_url "https://data.nba.com/data/10s/v2015/json/mobile_teams/nba/2018/league/00_full_schedule_week.json"
 
-  def http, do: Application.get_env(:nba, :http_data, Nba.Http.Data)
+  defp http, do: Application.get_env(:nba, :http_data, Nba.Http.Data)
 
+  @doc """
+  Returns a map keyed by months. The map's values are a list of games scheduled in the corresponding month.
+  """
+  @spec full_year_schedule :: map()
   def full_year_schedule do
     @schedule_url
     |> http().get()
