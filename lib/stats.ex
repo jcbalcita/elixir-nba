@@ -74,7 +74,7 @@ defmodule Nba.Stats do
   @spec param_values_for(String.t()) :: list(String.t())
   def param_values_for(param_name) do
     param = Parser.Stats.params_by_name()[param_name]
-    if param == nil, do: [], else: param["values"]
+    if param, do: param["values"], else: []
   end
 
   @spec defaults_for_these_parameters(list(String.t())) :: map()
