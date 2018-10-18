@@ -3,8 +3,6 @@ defmodule Nba.Parser.DataTest do
   doctest Nba.Parser.Data
   alias Nba.Parser
 
-  Application.put_env(:nba, :http_data, Nba.FakeHttp.Data)
-
   test "parses full-year-schedule correctly" do
     # given
     response = Nba.FakeHttp.Data.get("https://data.nba.com/data/schedule")
