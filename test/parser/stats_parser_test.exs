@@ -30,7 +30,7 @@ defmodule Nba.Parser.StatsTest do
 
     # then
     assert Enum.count(parameters) == 76
-    assert Enum.count(endpoints) == 32
+    assert Enum.count(endpoints) == 33
 
     Enum.each(endpoints, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "url") && Map.has_key?(p, "parameters")

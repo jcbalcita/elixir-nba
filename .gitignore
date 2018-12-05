@@ -23,3 +23,5 @@ erl_crash.dump
 elixir_nba-*.tar
 
 /.vscode/
+
+NOTES.txt

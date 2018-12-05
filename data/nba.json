@@ -27,6 +27,35 @@
       ]
     },
     {
+      "name": "player_game_logs",
+      "url": "https://stats.nba.com/stats/playergamelogs",
+      "parameters": [
+        "DateFrom",
+        "DateTo",
+        "GameSegment",
+        "LastNGames",
+        "LeagueID",
+        "Location",
+        "MeasureType",
+        "Month",
+        "OpponentTeamID",
+        "Outcome",
+        "PORound",
+        "PaceAdjust",
+        "PerMode",
+        "Period",
+        "PlayerID",
+        "PlusMinus",
+        "Rank",
+        "Season",
+        "SeasonSegment",
+        "SeasonType",
+        "ShotClockRange",
+        "VsConference",
+        "VsDivision"
+      ]
+    },
+    {
       "name": "team_stats",
       "url": "https://stats.nba.com/stats/leaguedashteamstats",
       "parameters": [
