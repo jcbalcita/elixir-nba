@@ -29,9 +29,6 @@ defmodule Nba.Parser.StatsTest do
 
     Enum.each(parameters, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "default") && Map.has_key?(p, "values")
-    end)
-
-    Enum.each(parameters, fn p ->
       assert Map.has_key?(params_by_name, p["name"])
       assert Map.get(params_by_name, p["name"]) == p
     end)
@@ -39,28 +36,14 @@ defmodule Nba.Parser.StatsTest do
 
   test "can read stats endpoints from endpoint json file" do
     # when
-    parameters = Parser.Stats.parameters()
     endpoints = Parser.Stats.endpoints()
-    params_by_name = Parser.Stats.params_by_name()
     endpoints_by_name = Parser.Stats.endpoints_by_name()
 
     # then
     assert Enum.count(endpoints) == 34
 
-    Enum.each(endpoints, fn p ->
-      assert Map.has_key?(p, "name") && Map.has_key?(p, "url") && Map.has_key?(p, "parameters")
-    end)
-
-    Enum.each(parameters, fn p ->
-      assert Map.has_key?(p, "name") && Map.has_key?(p, "default") && Map.has_key?(p, "values")
-    end)
-
-    Enum.each(parameters, fn p ->
-      assert Map.has_key?(params_by_name, p["name"])
-      assert Map.get(params_by_name, p["name"]) == p
-    end)
-
     Enum.each(endpoints, fn e ->
+      assert Map.has_key?(e, "name") && Map.has_key?(e, "url") && Map.has_key?(e, "parameters")
       assert Map.has_key?(endpoints_by_name, e["name"])
       assert Map.get(endpoints_by_name, e["name"]) == e
     end)
