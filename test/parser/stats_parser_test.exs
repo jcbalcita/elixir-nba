@@ -3,13 +3,29 @@ defmodule Nba.Parser.StatsTest do
   doctest Nba.Parser.Stats
   alias Nba.Parser
 
+  defp get_params_helper() do
+    params_loop(Parser.Stats.endpoints(), MapSet.new())
+  end
+
+  defp params_loop([], result_set), do: result_set
+
+  defp params_loop([endpoint | rest], result_set) do
+    new_result_set =
+      endpoint["parameters"]
+      |> Enum.reduce(result_set, fn p, acc ->
+        MapSet.put(acc, p)
+      end)
+
+    params_loop(rest, new_result_set)
+  end
+
   test "can read parameters from endpoint json file" do
     # when
     parameters = Parser.Stats.parameters()
     params_by_name = Parser.Stats.params_by_name()
 
     # then
-    assert Enum.count(parameters) == 76
+    assert Enum.count(parameters) == 77
 
     Enum.each(parameters, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "default") && Map.has_key?(p, "values")
@@ -29,8 +45,7 @@ defmodule Nba.Parser.StatsTest do
     endpoints_by_name = Parser.Stats.endpoints_by_name()
 
     # then
-    assert Enum.count(parameters) == 76
-    assert Enum.count(endpoints) == 33
+    assert Enum.count(endpoints) == 34
 
     Enum.each(endpoints, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "url") && Map.has_key?(p, "parameters")
@@ -49,6 +64,18 @@ defmodule Nba.Parser.StatsTest do
       assert Map.has_key?(endpoints_by_name, e["name"])
       assert Map.get(endpoints_by_name, e["name"]) == e
     end)
+  end
+
+  test "there are example and default values for all parameters listed under the endpoints" do
+    # given
+    documented_params = Parser.Stats.params_by_name() |> Map.keys() |> MapSet.new()
+    params_listed_under_endpoints = get_params_helper()
+
+    # when
+    difference = MapSet.difference(params_listed_under_endpoints, documented_params)
+
+    # then
+    assert MapSet.size(difference) == 0
   end
 
   test "correctly parses json from api response" do

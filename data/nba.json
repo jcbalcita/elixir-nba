@@ -56,6 +56,42 @@
       ]
     },
     {
+      "name": "team_shot_locations",
+      "url": "https://stats.nba.com/stats/leaguedashteamshotlocations",
+      "parameters": [
+        "Conference",
+        "DateFrom",
+        "DateTo",
+        "DistanceRange",
+        "Division",
+        "GameScope",
+        "GameSegment",
+        "LastNGames",
+        "LeagueID",
+        "Location",
+        "MeasureType",
+        "Month",
+        "OpponentTeamID",
+        "Outcome",
+        "PORound",
+        "PaceAdjust",
+        "PerMode",
+        "Period",
+        "PlayerExperience",
+        "PlayerPosition",
+        "PlusMinus",
+        "Rank",
+        "Season",
+        "SeasonSegment",
+        "SeasonType",
+        "ShotClockRange",
+        "StarterBench",
+        "TeamID",
+        "VsConference",
+        "VsDivision"
+      ]
+    },
+    {
       "name": "team_stats",
       "url": "https://stats.nba.com/stats/leaguedashteamstats",
       "parameters": [
@@ -893,8 +929,8 @@
       "name": "Outcome",
       "default": "",
       "values": [
-        "Win",
-        "Loss",
+        "W",
+        "L",
         ""
       ]
     },
@@ -1548,6 +1584,15 @@
       "default": "",
       "values": [
         "5"
+      ]
+    },
+    {
+      "name": "DistanceRange",
+      "default": "5ft Range",
+      "values": [
+        "5ft Range",
+        "8ft Range",
+        "By Zone"
       ]
     }
   ]
