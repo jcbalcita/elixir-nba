@@ -12,9 +12,7 @@ defmodule Nba.Parser.StatsTest do
   defp params_loop([endpoint | rest], result_set) do
     new_result_set =
       endpoint["parameters"]
-      |> Enum.reduce(result_set, fn p, acc ->
-        MapSet.put(acc, p)
-      end)
+      |> Enum.reduce(result_set, &MapSet.put(&2, &1))
 
     params_loop(rest, new_result_set)
   end
@@ -129,11 +127,11 @@ defmodule Nba.Parser.StatsTest do
 
   test "handles bad responses from api" do
     # given
-    json_response = %{"error" => "what happen"}
-    expected = %{}
+    http_response = {:error, "what happen"}
+    expected = %{error: "what happen"}
 
     # when
-    result = Parser.Stats.transform_api_response({:error, json_response})
+    result = Parser.Stats.transform_api_response(http_response)
 
     # then
     assert result == expected

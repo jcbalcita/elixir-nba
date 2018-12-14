@@ -18,7 +18,7 @@ defmodule Nba.Http do
   end
 
   defp handle_response(body, headers) do
-    maybe_unzip(body, headers)
+    maybe_unzip(body, headers) 
     |> Poison.decode!()
   end
 

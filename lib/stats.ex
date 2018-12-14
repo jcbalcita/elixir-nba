@@ -40,18 +40,15 @@ defmodule Nba.Stats do
 
     @spec unquote(:"#{name}")() :: list(String.t())
     def unquote(:"#{name}")() do
-      endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
-      endpoint = Parser.Stats.endpoints_by_name()[endpoint_name]
-
-      endpoint["parameters"]
+      Parser.Stats.endpoints_by_name()
+      |> Map.get(unquote(name))
+      |> Map.get("parameters")
     end
 
     @spec unquote(:"#{name}")(map()) :: map()
     def unquote(:"#{name}")(user_input_map) do
-      endpoint_name = __ENV__.function |> elem(0) |> Atom.to_string()
-      endpoint = Parser.Stats.endpoints_by_name()[endpoint_name]
-      url = endpoint["url"]
-      valid_params = endpoint["parameters"]
+      endpoint = Parser.Stats.endpoints_by_name() |> Map.get(unquote(name))
+      {url, valid_params} = {Map.get(endpoint, "url"), Map.get(endpoint, "parameters")}
 
       query_string =
         defaults_for_these_parameters(valid_params)
@@ -80,7 +77,10 @@ defmodule Nba.Stats do
   @spec defaults_for_these_parameters(list(String.t())) :: map()
   defp defaults_for_these_parameters(parameter_names) do
     parameter_names
-    |> Enum.map(fn name -> {name, Parser.Stats.params_by_name()[name]["default"]} end)
+    |> Enum.map(fn name -> 
+      default = Parser.Stats.params_by_name() |> Map.get(name) |> Map.get("default")
+      {name, default} 
+    end)
     |> Enum.into(%{})
   end
 end

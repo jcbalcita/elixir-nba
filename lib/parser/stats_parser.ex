@@ -46,5 +46,6 @@ defmodule Nba.Parser.Stats do
     end)
   end
 
+  def transform_api_response({:error, message}), do: %{error: message}
   def transform_api_response(_), do: %{}
 end
