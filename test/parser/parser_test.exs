@@ -3,7 +3,7 @@ defmodule Nba.ParserTest do
   doctest Nba.Parser
   alias Nba.Parser
 
-   test "can read stats headers from headers json file" do
+  test "can read stats headers from headers json file" do
     # when
     stats_headers = Parser.stats_headers()
 
@@ -18,7 +18,7 @@ defmodule Nba.ParserTest do
     assert stats_headers["Cache-Control"] == "no-cache"
 
     assert stats_headers["User-Agent"] ==
-             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0"
+             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"
   end
 
   test "can read data headers from headers json file" do
@@ -36,7 +36,6 @@ defmodule Nba.ParserTest do
     assert data_headers["Cache-Control"] == "no-cache"
 
     assert data_headers["User-Agent"] ==
-             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/61.0"
+             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"
   end
-
 end

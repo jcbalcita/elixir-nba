@@ -37,5 +37,4 @@ defmodule Nba.StatsTest do
     # then
     assert(expected == actual)
   end
-
 end

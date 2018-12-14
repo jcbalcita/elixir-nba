@@ -3,7 +3,7 @@ defmodule Nba.Parser.PlayerTest do
   doctest Nba.Parser.Player
   alias Nba.Parser
 
-test "can read players from players json file" do
+  test "can read players from players json file" do
     # when
     players = Parser.Player.players()
     players_by_id = Parser.Player.players_by_id()

@@ -3,7 +3,7 @@ defmodule Nba.Http do
   alias Nba.Parser
 
   def get(url, headers) do
-    IO.puts("Fetching – #{url}\n")
+    IO.puts("Fetching – #{url}")
 
     case HTTPoison.get(url, headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: response_headers}} ->
@@ -18,7 +18,7 @@ defmodule Nba.Http do
   end
 
   defp handle_response(body, headers) do
-    maybe_unzip(body, headers) 
+    maybe_unzip(body, headers)
     |> Poison.decode!()
   end
 
@@ -29,9 +29,7 @@ defmodule Nba.Http do
           :hackney_bstr.to_lower(value) == "gzip"
       end)
 
-    body = if gzip?, do: :zlib.gunzip(body), else: body
-
-    body
+    if gzip?, do: :zlib.gunzip(body), else: body
   end
 
   defmodule Stats do

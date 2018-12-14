@@ -27,7 +27,6 @@ defmodule Nba.Parser.StatsTest do
 
     Enum.each(parameters, fn p ->
       assert Map.has_key?(p, "name") && Map.has_key?(p, "default") && Map.has_key?(p, "values")
-      assert Map.has_key?(params_by_name, p["name"])
       assert Map.get(params_by_name, p["name"]) == p
     end)
   end
@@ -42,7 +41,6 @@ defmodule Nba.Parser.StatsTest do
 
     Enum.each(endpoints, fn e ->
       assert Map.has_key?(e, "name") && Map.has_key?(e, "url") && Map.has_key?(e, "parameters")
-      assert Map.has_key?(endpoints_by_name, e["name"])
       assert Map.get(endpoints_by_name, e["name"]) == e
     end)
   end
