@@ -30,9 +30,9 @@ defmodule Nba.Stats do
   """
 
   alias Nba.Parser
-  alias Nba.QueryString
+  alias Nba.Http.QueryString
 
-  defp http, do: Application.get_env(:nba, :http_stats, Nba.Http.Stats)
+  defp http, do: Application.get_env(:nba, :http, Nba.Http)
 
   Parser.Stats.endpoints()
   |> Enum.each(fn endpoint ->
@@ -56,16 +56,16 @@ defmodule Nba.Stats do
         |> QueryString.build(valid_params)
 
       (url <> query_string)
-      |> http().get()
+      |> http().get(Parser.headers())
       |> Parser.Stats.transform_api_response()
     end
   end)
 
   @spec endpoints() :: list(atom())
   def endpoints() do
-    __MODULE__.__info__(:functions)
-    |> Enum.filter(fn {_, arity} -> arity > 0 end)
-    |> Enum.map(fn {name, _} -> name end)
+    Parser.Stats.endpoints
+    |> Enum.map(&Map.get(&1, "name"))
+    |> Enum.map(&String.to_atom/1)
   end
 
   @spec param_values_for(String.t()) :: list(String.t())

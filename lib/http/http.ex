@@ -1,6 +1,5 @@
 defmodule Nba.Http do
   @moduledoc false
-  alias Nba.Parser
 
   def get(url, headers) do
     IO.puts("Fetching – #{url}")
@@ -17,8 +16,8 @@ defmodule Nba.Http do
     end
   end
 
-  defp handle_response(body, headers) do
-    maybe_unzip(body, headers)
+  defp handle_response(body, response_headers) do
+    maybe_unzip(body, response_headers)
     |> Poison.decode!()
   end
 
@@ -30,15 +29,5 @@ defmodule Nba.Http do
       end)
 
     if gzip?, do: :zlib.gunzip(body), else: body
-  end
-
-  defmodule Stats do
-    @moduledoc false
-    def get(url), do: Nba.Http.get(url, Parser.stats_headers())
-  end
-
-  defmodule Data do
-    @moduledoc false
-    def get(url), do: Nba.Http.get(url, Parser.data_headers())
   end
 end

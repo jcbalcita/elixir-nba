@@ -277,7 +277,7 @@ defmodule Nba.FakeHttp.Stats do
     }
   }
 
-  def get(url) do
+  def get(url, _headers) do
     case URI.parse(url) do
       %URI{scheme: nil} -> {:error, "bad url"}
       %URI{host: nil} -> {:error, "bad url"}

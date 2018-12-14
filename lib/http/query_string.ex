@@ -1,4 +1,4 @@
-defmodule Nba.QueryString do
+defmodule Nba.Http.QueryString do
   @moduledoc false
 
   @spec build(map(), list(String.t())) :: String.t()

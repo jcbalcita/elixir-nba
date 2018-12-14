@@ -1,7 +1,7 @@
-defmodule NbaTest.QueryString do
+defmodule Nba.Http.QueryStringTest do
   use ExUnit.Case
-  doctest Nba.QueryString
-  alias Nba.QueryString
+  doctest Nba.Http.QueryString
+  alias Nba.Http.QueryString
 
   test "builds query string from map" do
     # given

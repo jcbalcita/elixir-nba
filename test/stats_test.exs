@@ -3,7 +3,7 @@ defmodule Nba.StatsTest do
   alias Nba.Parser
   doctest Nba.Stats
 
-  Application.put_env(:nba, :http_stats, Nba.FakeHttp.Stats)
+  Application.put_env(:nba, :http, Nba.FakeHttp.Stats)
 
   test "creates functions for each endpoint" do
     Parser.Stats.endpoints_by_name()
