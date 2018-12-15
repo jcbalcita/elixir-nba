@@ -77,10 +77,9 @@ defmodule Nba.Stats do
   @spec defaults_for_these_parameters(list(String.t())) :: map()
   defp defaults_for_these_parameters(parameter_names) do
     parameter_names
-    |> Enum.map(fn name ->
+    |> Enum.reduce(%{}, fn name, acc ->
       default = Parser.Stats.params_by_name() |> Map.get(name) |> Map.get("default")
-      {name, default}
+      Map.put(acc, name, default)
     end)
-    |> Enum.into(%{})
   end
 end
