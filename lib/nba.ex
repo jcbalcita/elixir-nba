@@ -5,5 +5,4 @@ defmodule Nba do
   This library provides an Elixir client for interacting with many
   of those API endpoints.
   """
-
 end
