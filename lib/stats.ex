@@ -47,23 +47,21 @@ defmodule Nba.Stats do
 
     @spec unquote(:"#{name}")(map()) :: map()
     def unquote(:"#{name}")(user_input_map) do
-      endpoint = Parser.Stats.endpoints_by_name() |> Map.get(unquote(name))
-      {url, valid_params} = {Map.get(endpoint, "url"), Map.get(endpoint, "parameters")}
+      with endpoint <- Parser.Stats.endpoints_by_name[unquote(name)],
+           valid_params <- Map.get(endpoint, "parameters"),
+           url <- Map.get(endpoint, "url"),
+           query_string <- build_query_string(user_input_map, valid_params) do
 
-      query_string =
-        defaults_for_these_parameters(valid_params)
-        |> Map.merge(user_input_map)
-        |> QueryString.build(valid_params)
-
-      (url <> query_string)
-      |> http().get(Parser.headers())
-      |> Parser.Stats.transform_api_response()
+        (url <> query_string)
+        |> http().get(Parser.headers())
+        |> Parser.Stats.transform_api_response()
+      end
     end
   end)
 
   @spec endpoints() :: list(atom())
   def endpoints() do
-    Parser.Stats.endpoints
+    Parser.Stats.endpoints()
     |> Enum.map(&Map.get(&1, "name"))
     |> Enum.map(&String.to_atom/1)
   end
@@ -72,6 +70,12 @@ defmodule Nba.Stats do
   def param_values_for(param_name) do
     param = Parser.Stats.params_by_name()[param_name]
     if param, do: param["values"], else: []
+  end
+
+  defp build_query_string(user_input_map, valid_params) do
+    defaults_for_these_parameters(valid_params)
+    |> Map.merge(user_input_map)
+    |> QueryString.build(valid_params)
   end
 
   @spec defaults_for_these_parameters(list(String.t())) :: map()
