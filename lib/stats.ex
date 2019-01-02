@@ -48,9 +48,9 @@ defmodule Nba.Stats do
     @spec unquote(:"#{name}")(map()) :: map()
     def unquote(:"#{name}")(user_input_map) do
       with endpoint <- Parser.Stats.endpoints_by_name[unquote(name)],
-           valid_params <- Map.get(endpoint, "parameters"),
+           valid_keys <- Map.get(endpoint, "parameters"),
            url <- Map.get(endpoint, "url"),
-           query_string <- build_query_string(user_input_map, valid_params) do
+           query_string <- build_query_string(user_input_map, valid_keys) do
 
         (url <> query_string)
         |> http().get(Parser.headers())
@@ -72,18 +72,18 @@ defmodule Nba.Stats do
     if param, do: param["values"], else: []
   end
 
-  defp build_query_string(user_input_map, valid_params) do
-    defaults_for_these_parameters(valid_params)
+  defp build_query_string(user_input_map, valid_keys) do
+    defaults_for_these_parameters(valid_keys)
     |> Map.merge(user_input_map)
-    |> QueryString.build(valid_params)
+    |> QueryString.build(valid_keys)
   end
 
   @spec defaults_for_these_parameters(list(String.t())) :: map()
-  defp defaults_for_these_parameters(parameter_names) do
-    parameter_names
-    |> Enum.reduce(%{}, fn name, acc ->
-      default = Parser.Stats.params_by_name() |> Map.get(name) |> Map.get("default")
-      Map.put(acc, name, default)
+  defp defaults_for_these_parameters(parameter_keys) do
+    parameter_keys
+    |> Enum.reduce(%{}, fn key, acc ->
+      default_value = Parser.Stats.params_by_name() |> Map.get(key) |> Map.get("default")
+      Map.put(acc, key, default_value)
     end)
   end
 end
