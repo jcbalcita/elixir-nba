@@ -25,3 +25,4 @@ elixir_nba-*.tar
 /.vscode/
 
 NOTES.txt
+.DS_store
