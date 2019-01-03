@@ -6,7 +6,7 @@ defmodule Nba.Stats do
   See what endpoints you can hit:
 
       Nba.Stats.endpoints()
-      #=> ["assist_tracker", "box_score", "box_score_summary", ...]
+      #=> [:assist_tracker, :box_score, :box_score_summary, ...]
 
   Each endpoint has two corresponding functions, one with an
   arity of 0 and one with an arity of 1. The 0-arity functions
@@ -73,13 +73,13 @@ defmodule Nba.Stats do
   end
 
   defp build_query_string(user_input_map, valid_keys) do
-    defaults_for_these_parameters(valid_keys)
+    default_values_for(valid_keys)
     |> Map.merge(user_input_map)
     |> QueryString.build(valid_keys)
   end
 
-  @spec defaults_for_these_parameters(list(String.t())) :: map()
-  defp defaults_for_these_parameters(parameter_keys) do
+  @spec default_values_for(list(String.t())) :: map()
+  defp default_values_for(parameter_keys) do
     parameter_keys
     |> Enum.reduce(%{}, fn key, acc ->
       default_value = Parser.Stats.params_by_name() |> Map.get(key) |> Map.get("default")

@@ -5,12 +5,12 @@ defmodule Nba.Parser.Stats do
   @endpoints with {:ok, body} <- File.read(json_path),
                   {:ok, json} <- Poison.decode(body),
                   do: json
-  @params_by_name Enum.reduce(@endpoints["parameters"], %{}, fn p, acc ->
-                    Map.put(acc, p["name"], p)
-                  end)
   @endpoints_by_name Enum.reduce(@endpoints["stats_endpoints"], %{}, fn p, acc ->
                        Map.put(acc, p["name"], p)
                      end)
+  @params_by_name Enum.reduce(@endpoints["parameters"], %{}, fn p, acc ->
+                    Map.put(acc, p["name"], p)
+                  end)
 
   @spec parameters :: list(map())
   def parameters, do: @endpoints["parameters"]
