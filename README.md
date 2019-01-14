@@ -40,7 +40,7 @@
   If you need example values for a query param, use `Nba.Stats.param_values_for/1`.
 
   ```elixir
-    Nba.Stats.param_values_for("PerMode")
+    Nba.Stats.keys_for("PerMode")
     #=> ["Totals", "PerGame", "MinutesPer", "Per48", "Per40", "Per36", "PerMinute", "PerPossession", "PerPlay", "Per100Possessions", "Per100Plays"]
   ```
       
