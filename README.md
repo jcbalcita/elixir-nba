@@ -50,7 +50,7 @@
   key/values. The functions with a `!` raise an exception if the 
   API call results in an error. 
     
-    ```elixir
+  ```elixir
       Nba.Stats.player_profile(%{"PlayerID" => 1628366})
       #=> {:ok, ...}
 
@@ -65,4 +65,4 @@
       #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; 
              PlayerID is required
              (nba) lib/stats.ex:73: Nba.Stats.player_profile!/1
-    ```
+  ```
