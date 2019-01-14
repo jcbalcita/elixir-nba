@@ -60,15 +60,14 @@ defmodule Nba.Stats do
 
     @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
     def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
-      with endpoint <- Parser.Stats.endpoints_by_name()[unquote(name)],
-           valid_keys <- Map.get(endpoint, "parameters"),
-           url <- Map.get(endpoint, "url"),
-           query_string <- build_query_string(user_input_map, valid_keys) do
+      endpoint = Parser.Stats.endpoints_by_name()[unquote(name)],
+      valid_keys = Map.get(endpoint, "parameters"),
+      url = Map.get(endpoint, "url"),
+      query_string = build_query_string(user_input_map, valid_keys)
 
-        (url <> query_string)
-        |> http().get(Parser.headers())
-        |> Parser.Stats.transform_api_response()
-      end
+      (url <> query_string)
+      |> http().get(Parser.headers())
+      |> Parser.Stats.transform_api_response()
     end
 
     @spec unquote(:"#{name}!")(map()) :: map()
