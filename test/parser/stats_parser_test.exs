@@ -123,6 +123,7 @@ defmodule Nba.Parser.StatsTest do
     # given
     http_response = %{
       "resultSets" => %{
+        "name" => "title",
         "headers" => [
           %{
             "columnsToSkip" => 2,
@@ -141,32 +142,34 @@ defmodule Nba.Parser.StatsTest do
       }
     }
 
-    expected = [
-      %{
-        "Coolest Dude" => "John Carlo",
-        "Power Level" => "Over 9000",
-        "First Group" => %{
-          "Repeat One" => 1,
-          "Repeat Two" => 2
+    expected = %{
+      "title" => [
+        %{
+          "Coolest Dude" => "John Carlo",
+          "Power Level" => "Over 9000",
+          "First Group" => %{
+            "Repeat One" => 1,
+            "Repeat Two" => 2
+          },
+          "Second Group" => %{
+            "Repeat One" => 3,
+            "Repeat Two" => 4
+          }
         },
-        "Second Group" => %{
-          "Repeat One" => 3,
-          "Repeat Two" => 4
+        %{
+          "Coolest Dude" => "JC",
+          "Power Level" => "Over 8000",
+          "First Group" => %{
+            "Repeat One" => 5,
+            "Repeat Two" => 6
+          },
+          "Second Group" => %{
+            "Repeat One" => 7,
+            "Repeat Two" => 8
+          }
         }
-      },
-      %{
-        "Coolest Dude" => "JC",
-        "Power Level" => "Over 8000",
-        "First Group" => %{
-          "Repeat One" => 5,
-          "Repeat Two" => 6
-        },
-        "Second Group" => %{
-          "Repeat One" => 7,
-          "Repeat Two" => 8
-        }
-      }
-    ]
+      ]
+    }
 
     # when
     result = Nba.Parser.Stats.transform_api_response({:ok, http_response})
