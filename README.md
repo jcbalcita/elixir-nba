@@ -41,8 +41,7 @@
 
   ```elixir
     Nba.Stats.param_values_for("PerMode")
-    #=> ["Totals", "PerGame", "MinutesPer", "Per48", "Per40", "Per36", "PerMinute",
-         "PerPossession", "PerPlay", "Per100Possessions", "Per100Plays"]
+    #=> ["Totals", "PerGame", "MinutesPer", "Per48", "Per40", "Per36", "PerMinute", "PerPossession", "PerPlay", "Per100Possessions", "Per100Plays"]
   ```
       
   Now that you know what query params you can pass, let's make
@@ -55,14 +54,11 @@
       #=> {:ok, ...}
 
       Nba.Stats.player_profile(%{"PlayerID" => "Go Bruins"})
-      #=> {:error, 
-           "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
+      #=> {:error, "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
       
       Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
       #=> %{"CareerHighs" => ...}
       
       Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
-      #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; 
-             PlayerID is required
-             (nba) lib/stats.ex:73: Nba.Stats.player_profile!/1
+      #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required
   ```
