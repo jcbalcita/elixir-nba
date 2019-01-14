@@ -28,7 +28,7 @@ defmodule Nba.Parser.Stats do
   def transform_api_response({:ok, body} = unmodified_response) do
     case {body["resultSet"], body["resultSets"]} do
       {nil, nil} ->
-        {:error, "Error calling API"}
+        unmodified_response
 
       {nil, result_sets} ->
         try do
@@ -43,9 +43,6 @@ defmodule Nba.Parser.Stats do
         rescue
           _ -> unmodified_response
         end
-      
-      _ -> 
-        unmodified_response
     end
   end
 

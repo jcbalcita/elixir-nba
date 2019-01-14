@@ -23,7 +23,7 @@ defmodule Nba.Parser.StatsTest do
     endpoints_by_name = Parser.Stats.endpoints_by_name()
 
     # then
-    assert Enum.count(endpoints) == 33
+    assert Enum.count(endpoints) == 34
 
     Enum.each(endpoints, fn e ->
       assert Map.has_key?(e, "name") && Map.has_key?(e, "url") && Map.has_key?(e, "parameters")
@@ -105,7 +105,7 @@ defmodule Nba.Parser.StatsTest do
     assert result == expected
   end
 
-  test "handles results with column subgroups" do 
+  test "handles results with column subgroups" do
     # given
     http_response = %{
       "resultSets" => %{
@@ -166,8 +166,8 @@ defmodule Nba.Parser.StatsTest do
 
   test "as failsafe, returns unmodified json response if it's a weird shape or parsing otherwise fails" do
     # given
-    http_response = %{
-      "resultSets" => %{
+    unexpected_but_valid_http_response = %{
+      "resultStuff" => %{
         "name" => "Base Columns",
         "columnNames" => ["Coolest Dude", "Power Level", "Repeat One", "Repeat Two", "Repeat One", "Repeat Two"],
         "rowSet" => ["John Carlo", "Over 9000", 1, 2, 3, 4]
@@ -175,10 +175,10 @@ defmodule Nba.Parser.StatsTest do
     }
 
     # when
-    result = Nba.Parser.Stats.transform_api_response({:ok, http_response})
+    result = Nba.Parser.Stats.transform_api_response({:ok, unexpected_but_valid_http_response})
 
     # then
-    assert result == {:ok, http_response}
+    assert result == {:ok, unexpected_but_valid_http_response}
   end
 
   defp get_endpoint_params(endpoints) do
