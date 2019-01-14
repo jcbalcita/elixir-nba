@@ -37,7 +37,7 @@ defmodule Nba.Parser.StatsTest do
     endpoints_by_name = Parser.Stats.endpoints_by_name()
 
     # then
-    assert Enum.count(endpoints) == 34
+    assert Enum.count(endpoints) == 33
 
     Enum.each(endpoints, fn e ->
       assert Map.has_key?(e, "name") && Map.has_key?(e, "url") && Map.has_key?(e, "parameters")
@@ -64,33 +64,17 @@ defmodule Nba.Parser.StatsTest do
       "resultSets" => [
         %{
           "name" => "CommonPlayerInfo",
-          "headers" => [
-            "player_name",
-            "school",
-            "draft_year"
-          ],
+          "headers" => ["player_name", "school", "draft_year"],
           "rowSet" => [
-            [
-              "John Carlo",
-              "UCLA",
-              "2009"
-            ],
-            [
-              "Kaylen",
-              "UC Berkeley",
-              "2012"
-            ]
+            ["John Carlo", "UCLA", "2009"],
+            ["Kaylen", "UC Berkeley", "2012"]
           ]
         },
         %{
           "name" => "Headline",
-          "headers" => [
-            "player_name"
-          ],
+          "headers" => ["player_name"],
           "rowSet" => [
-            [
-              "John Carlo"
-            ]
+            ["John Carlo"]
           ]
         }
       ]
@@ -120,18 +104,77 @@ defmodule Nba.Parser.StatsTest do
     result = Parser.Stats.transform_api_response({:ok, json_response})
 
     # then
-    assert result == expected
+    assert result == {:ok, expected}
   end
 
   test "handles bad responses from api" do
     # given
     http_response = {:error, "what happen"}
-    expected = %{error: "what happen"}
+    expected = {:error, "what happen"}
 
     # when
     result = Parser.Stats.transform_api_response(http_response)
 
     # then
     assert result == expected
+  end
+
+  test "handles results with column subgroups" do 
+    # given
+    http_response = %{
+      "resultSets" => %{
+        "name" => "title",
+        "headers" => [
+          %{
+            "columnsToSkip" => 2,
+            "columnSpan" => 2,
+            "columnNames" => ["First Group", "Second Group"]
+          },
+          %{
+            "name" => "Base Columns",
+            "columnNames" => ["Coolest Dude", "Power Level", "Repeat One", "Repeat Two", "Repeat One", "Repeat Two"]
+          }
+        ],
+        "rowSet" => [
+          ["John Carlo", "Over 9000", 1, 2, 3, 4],
+          ["JC", "Over 8000", 5, 6, 7, 8]
+        ]
+      }
+    }
+
+    expected = %{
+      "title" => [
+        %{
+          "Coolest Dude" => "John Carlo",
+          "Power Level" => "Over 9000",
+          "First Group" => %{
+            "Repeat One" => 1,
+            "Repeat Two" => 2
+          },
+          "Second Group" => %{
+            "Repeat One" => 3,
+            "Repeat Two" => 4
+          }
+        },
+        %{
+          "Coolest Dude" => "JC",
+          "Power Level" => "Over 8000",
+          "First Group" => %{
+            "Repeat One" => 5,
+            "Repeat Two" => 6
+          },
+          "Second Group" => %{
+            "Repeat One" => 7,
+            "Repeat Two" => 8
+          }
+        }
+      ]
+    }
+
+    # when
+    result = Nba.Parser.Stats.transform_api_response({:ok, http_response})
+
+    # then
+    assert result == {:ok, expected}
   end
 end

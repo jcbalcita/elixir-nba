@@ -6,27 +6,39 @@ defmodule Nba.Stats do
   See what endpoints you can hit:
 
       Nba.Stats.endpoints()
-      #=> [:assist_tracker, :box_score, :box_score_summary, ...]
+      #=> [:assist_tracker:, :box_score:, :box_score_summary:, ...] 
 
-  Each endpoint has two corresponding functions, one with an
-  arity of 0 and one with an arity of 1. The 0-arity functions
-  return a list of the available query parameters for
-  its endpoint.
+  Each endpoint has a corresponding function with an arity of 0 that
+  returns a list of the available query parameters for the endpoint.
 
-      Nba.Stats.player_info()
-      #=> ["PlayerID", "SeasonType", "LeagueID"]
+      Nba.Stats.player_profile()
+      #=> ["LeagueID", "PerMode", "PlayerID"]
 
-  Now that you know what query params you can pass, let's make
-  a call to the endpoint by passing in a map of query param
-  key/values.
-
-      Nba.Stats.player_info(%{"PlayerID" => "1627742"})
-
-  If you need example values for a query param, use
-  `Nba.Stats.param_values_for/1`.
+  If you need example values for a query param, use `Nba.Stats.param_values_for/1`.
 
       Nba.Stats.param_values_for("AheadBehind")
       #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
+
+  Now that you know what query params you can pass, let's make
+  a call to the endpoint by passing in a map of query param
+  key/values. The functions with a `!` raise an exception if the 
+  API call results in an error. 
+
+      Nba.Stats.player_profile(%{"PlayerID" => 1628366})
+      #=> {:ok, ...}
+
+      Nba.Stats.player_profile(%{"PlayerID" => "Go Bruins"})
+      #=> {:error, 
+           "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
+      
+      Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
+      #=> %{"CareerHighs" => ...}
+      
+      Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
+      #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; 
+             PlayerID is required
+             (nba) lib/stats.ex:73: Nba.Stats.player_profile!/1
+
   """
 
   alias Nba.Parser
@@ -39,22 +51,32 @@ defmodule Nba.Stats do
     name = endpoint["name"]
 
     @spec unquote(:"#{name}")() :: list(String.t())
+    @doc false
     def unquote(:"#{name}")() do
       Parser.Stats.endpoints_by_name()
       |> Map.get(unquote(name))
       |> Map.get("parameters")
     end
 
-    @spec unquote(:"#{name}")(map()) :: map()
-    def unquote(:"#{name}")(user_input_map) do
-      with endpoint <- Parser.Stats.endpoints_by_name[unquote(name)],
-           valid_keys <- Map.get(endpoint, "parameters"),
+    @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
+    def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
+      with endpoint <- Parser.Stats.endpoints_by_name()[unquote(name)],
+           valid_params <- Map.get(endpoint, "parameters"),
            url <- Map.get(endpoint, "url"),
            query_string <- build_query_string(user_input_map, valid_keys) do
 
         (url <> query_string)
         |> http().get(Parser.headers())
         |> Parser.Stats.transform_api_response()
+      end
+    end
+
+    @spec unquote(:"#{name}!")(map()) :: map()
+    def unquote(:"#{name}!")(user_input_map) do
+      case apply(__MODULE__, :"#{unquote(name)}", [user_input_map]) do
+        {:ok, result} -> result
+        {:error, error} -> raise %RuntimeError{message: error}
+        _ -> raise %RuntimeError{message: "Error calling API"}
       end
     end
   end)

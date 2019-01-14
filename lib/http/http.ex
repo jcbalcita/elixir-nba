@@ -13,6 +13,9 @@ defmodule Nba.Http do
 
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
+
+      _ -> 
+        {:error, "Error calling API"}
     end
   end
 

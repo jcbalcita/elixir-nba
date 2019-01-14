@@ -9,15 +9,6 @@
       ]
     },
     {
-      "name": "player_info",
-      "url": "https://stats.nba.com/stats/commonplayerinfo",
-      "parameters": [
-        "PlayerID",
-        "SeasonType",
-        "LeagueID"
-      ]
-    },
-    {
       "name": "players_info",
       "url": "https://stats.nba.com/stats/commonallplayers",
       "parameters": [
