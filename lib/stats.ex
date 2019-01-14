@@ -6,7 +6,7 @@ defmodule Nba.Stats do
   See what endpoints you can hit:
 
       Nba.Stats.endpoints()
-      #=> [:assist_tracker:, :box_score:, :box_score_summary:, ...] 
+      #=> [:assist_tracker:, :box_score:, :box_score_summary:, ...]
 
   Each endpoint has a corresponding function with an arity of 0 that
   returns a list of the available query parameters for the endpoint.
@@ -22,18 +22,18 @@ defmodule Nba.Stats do
 
   Now that you know what query params you can pass, let's make
   a call to the endpoint by passing in a map of query param
-  key/values. The functions with a `!` raise an exception if the 
-  API call results in an error. 
+  key/values. The functions with a `!` raise an exception if the
+  API call results in an error.
 
       Nba.Stats.player_profile(%{"PlayerID" => 1628366})
       #=> {:ok, %{"CareerHighs" => ...}}
 
       Nba.Stats.player_profile(%{"PlayerID" => "Go Bruins"})
       #=> {:error, "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
-      
+
       Nba.Stats.player_profile!(%{"PlayerID" => 1628366})
       #=> %{"CareerHighs" => ...}
-      
+
       Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
       #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required
   """
@@ -53,6 +53,7 @@ defmodule Nba.Stats do
       Parser.Stats.endpoints_by_name()
       |> Map.get(unquote(name))
       |> Map.get("parameters")
+      |> Enum.sort()
     end
 
     @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
