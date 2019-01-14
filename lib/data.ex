@@ -15,13 +15,13 @@ defmodule Nba.Data do
   You can pass in a single key-value pair for first name, last name,
   or full name.
 
-      Nba.find_player(first_name: "brandn")
-      Nba.find_player(last_name: "ingram")
-      Nba.find_player(full_name: "brandon ingram")
+      Nba.Data.find_player(first_name: "brandn")
+      Nba.Data.find_player(last_name: "ingrm")
+      Nba.Data.find_player(full_name: "brandn ingram")
 
   You may also pass in a string as an argument.
 
-      Nba.find_player("J Holiday")
+      iex> Nba.Data.find_player("J Holiday")
       [%{
         "first_name" => "Jrue",
         "last_name" => "Holiday",
@@ -90,7 +90,7 @@ defmodule Nba.Data do
   Returns a single player that best matches the search,
   or nil if no match was found.
 
-      Nba.find_player!("J Holiday")
+      iex> Nba.Data.find_player!("J Holiday")
       %{
         "first_name" => "Jrue",
         "last_name" => "Holiday",

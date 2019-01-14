@@ -14,12 +14,11 @@ defmodule Nba.Stats do
       Nba.Stats.player_profile()
       #=> ["LeagueID", "PerMode", "PlayerID"]
 
-  If you need example keys for a query param, use `Nba.Stats.param_values_for/1`.
+  If you need example keys for a query param, use `Nba.Stats.keys_for/1`.
   Note that you do not necessarily need to pass in values for all the keys listed.
 
       Nba.Stats.keys_for("PerMode")
-      #=> ["Totals", "PerGame", "MinutesPer", "Per48", "Per40", "Per36", "PerMinute",
-           "PerPossession", "PerPlay", "Per100Possessions", "Per100Plays"]
+      #=> ["Totals", "PerGame", "MinutesPer", "Per48", ...]
 
   Now that you know what query params you can pass, let's make
   a call to the endpoint by passing in a map of query param
@@ -27,20 +26,16 @@ defmodule Nba.Stats do
   API call results in an error. 
 
       Nba.Stats.player_profile(%{"PlayerID" => 1628366})
-      #=> {:ok, ...}
+      #=> {:ok, %{"CareerHighs" => ...}}
 
       Nba.Stats.player_profile(%{"PlayerID" => "Go Bruins"})
-      #=> {:error, 
-           "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
+      #=> {:error, "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
       
       Nba.Stats.player_profile!(%{"PlayerID" => 1628366})
       #=> %{"CareerHighs" => ...}
       
       Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
-      #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; 
-             PlayerID is required
-             (nba) lib/stats.ex:73: Nba.Stats.player_profile!/1
-
+      #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required
   """
 
   alias Nba.Parser
@@ -82,6 +77,7 @@ defmodule Nba.Stats do
     end
   end)
 
+  @doc "Returns a list of atoms, one for each endpoint function in the Stats module"
   @spec endpoints() :: list(atom())
   def endpoints() do
     Parser.Stats.endpoints()
