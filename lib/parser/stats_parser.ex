@@ -46,9 +46,7 @@ defmodule Nba.Parser.Stats do
 
   def transform_api_response({:error, message}), do: {:error, message}
 
-  defp zip_single_row_set(row_set, headers) do
-    Enum.map(row_set, &Enum.zip(headers, &1))
-  end
+  defp zip_single_row_set(row_set, headers), do: Enum.map(row_set, &Enum.zip(headers, &1))
 
   defp build_and_zip(result_sets) when is_list(result_sets) do
     result =

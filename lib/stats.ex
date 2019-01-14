@@ -51,6 +51,7 @@ defmodule Nba.Stats do
     name = endpoint["name"]
 
     @spec unquote(:"#{name}")() :: list(String.t())
+    @doc false
     def unquote(:"#{name}")() do
       Parser.Stats.endpoints_by_name()
       |> Map.get(unquote(name))
