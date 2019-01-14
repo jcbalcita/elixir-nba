@@ -77,8 +77,8 @@ defmodule Nba.Stats do
     end
   end)
 
-  @doc "Returns a list of atoms, one for each endpoint function in the Stats module"
   @spec endpoints() :: list(atom())
+  @doc "Returns a list of atoms, one for each endpoint function in the Stats module"
   def endpoints() do
     Parser.Stats.endpoints()
     |> Enum.map(&Map.get(&1, "name"))
@@ -86,7 +86,7 @@ defmodule Nba.Stats do
   end
 
   @spec keys_for(String.t()) :: list(String.t())
-  @doc "Returns a list of valid query param keys for an endpoint name"
+  @doc "Returns a list of valid query param keys for an endpoint"
   def keys_for(param_name) do
     param = Parser.Stats.params_by_name()[param_name]
     if param, do: param["values"], else: []

@@ -3,20 +3,6 @@ defmodule Nba.Parser.StatsTest do
   doctest Nba.Parser.Stats
   alias Nba.Parser
 
-  defp get_params_helper() do
-    params_loop(Parser.Stats.endpoints(), MapSet.new())
-  end
-
-  defp params_loop([], result_set), do: result_set
-
-  defp params_loop([endpoint | rest], result_set) do
-    new_result_set =
-      endpoint["parameters"]
-      |> Enum.reduce(result_set, &MapSet.put(&2, &1))
-
-    params_loop(rest, new_result_set)
-  end
-
   test "can read parameters from endpoint json file" do
     # when
     parameters = Parser.Stats.parameters()
@@ -48,7 +34,7 @@ defmodule Nba.Parser.StatsTest do
   test "there are example and default values for all parameters listed under the endpoints" do
     # given
     documented_params = Parser.Stats.params_by_name() |> Map.keys() |> MapSet.new()
-    params_listed_under_endpoints = get_params_helper()
+    params_listed_under_endpoints = get_endpoint_params(Parser.Stats.endpoints())
 
     # when
     difference = MapSet.difference(params_listed_under_endpoints, documented_params)
@@ -176,5 +162,19 @@ defmodule Nba.Parser.StatsTest do
 
     # then
     assert result == {:ok, expected}
+  end
+
+  defp get_endpoint_params(endpoints) do
+    params_loop(endpoints, MapSet.new())
+  end
+
+  defp params_loop([], result_set), do: result_set
+
+  defp params_loop([endpoint | rest], result_set) do
+    new_result_set =
+      endpoint["parameters"]
+      |> Enum.reduce(result_set, &MapSet.put(&2, &1))
+
+    params_loop(rest, new_result_set)
   end
 end
