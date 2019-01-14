@@ -14,10 +14,11 @@ defmodule Nba.Stats do
       Nba.Stats.player_profile()
       #=> ["LeagueID", "PerMode", "PlayerID"]
 
-  If you need example values for a query param, use `Nba.Stats.param_values_for/1`.
+  If you need example keys for a query param, use `Nba.Stats.param_values_for/1`.
 
-      Nba.Stats.param_values_for("AheadBehind")
-      #=> ["Ahead or Behind", "Ahead or Tied", "Behind or Tied", ""]
+      Nba.Stats.keys_for("PerMode")
+      #=> ["Totals", "PerGame", "MinutesPer", "Per48", "Per40", "Per36", "PerMinute",
+           "PerPossession", "PerPlay", "Per100Possessions", "Per100Plays"]
 
   Now that you know what query params you can pass, let's make
   a call to the endpoint by passing in a map of query param
@@ -60,9 +61,9 @@ defmodule Nba.Stats do
 
     @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
     def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
-      endpoint = Parser.Stats.endpoints_by_name()[unquote(name)],
-      valid_keys = Map.get(endpoint, "parameters"),
-      url = Map.get(endpoint, "url"),
+      endpoint = Parser.Stats.endpoints_by_name()[unquote(name)]
+      valid_keys = Map.get(endpoint, "parameters")
+      url = Map.get(endpoint, "url")
       query_string = build_query_string(user_input_map, valid_keys)
 
       (url <> query_string)
@@ -87,8 +88,9 @@ defmodule Nba.Stats do
     |> Enum.map(&String.to_atom/1)
   end
 
-  @spec param_values_for(String.t()) :: list(String.t())
-  def param_values_for(param_name) do
+  @spec keys_for(String.t()) :: list(String.t())
+  @doc "Returns a list of valid query param keys for an endpoint name"
+  def keys_for(param_name) do
     param = Parser.Stats.params_by_name()[param_name]
     if param, do: param["values"], else: []
   end
