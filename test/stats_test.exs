@@ -41,16 +41,16 @@ defmodule Nba.StatsTest do
     end)
   end
 
-  test "param_values_for/1 returns empty list when given an invalid param" do
+  test "keys_for/1 returns empty list when given an invalid param" do
     # given
     invalid_param = "I'm-so-invalid!"
     # when
-    actual = Nba.Stats.param_values_for(invalid_param)
+    actual = Nba.Stats.keys_for(invalid_param)
     # then
     assert([] == actual)
   end
 
-  test "param_values_for/1 returns a list of example param values when given a valid param" do
+  test "keys_for/1 returns a list of example param values when given a valid param" do
     # given
     expected = ["1996-97", "1997-98", "1998-99", "1999-00", "2000-01", "2001-02", "2002-03",
                 "2003-04", "2004-05", "2005-06", "2006-07", "2007-08", "2008-09", "2009-10",
@@ -60,7 +60,7 @@ defmodule Nba.StatsTest do
     valid_param = "Season"
 
     # when
-    actual = Nba.Stats.param_values_for(valid_param)
+    actual = Nba.Stats.keys_for(valid_param)
 
     # then
     assert(expected == actual)

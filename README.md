@@ -56,7 +56,7 @@
       Nba.Stats.player_profile(%{"PlayerID" => "Go Bruins"})
       #=> {:error, "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
       
-      Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
+      Nba.Stats.player_profile!(%{"PlayerID" => 1628366})
       #=> %{"CareerHighs" => ...}
       
       Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})

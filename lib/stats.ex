@@ -15,6 +15,7 @@ defmodule Nba.Stats do
       #=> ["LeagueID", "PerMode", "PlayerID"]
 
   If you need example keys for a query param, use `Nba.Stats.param_values_for/1`.
+  Note that you do not necessarily need to pass in values for all the keys listed.
 
       Nba.Stats.keys_for("PerMode")
       #=> ["Totals", "PerGame", "MinutesPer", "Per48", "Per40", "Per36", "PerMinute",
@@ -32,7 +33,7 @@ defmodule Nba.Stats do
       #=> {:error, 
            "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
       
-      Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
+      Nba.Stats.player_profile!(%{"PlayerID" => 1628366})
       #=> %{"CareerHighs" => ...}
       
       Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
