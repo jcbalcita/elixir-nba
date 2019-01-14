@@ -3,13 +3,41 @@ defmodule Nba.StatsTest do
   alias Nba.Parser
   doctest Nba.Stats
 
-  Application.put_env(:nba, :http, Nba.FakeHttp.Stats)
+  test "creates functions for each endpoint (happy path)" do
+    # given
+    Application.put_env(:nba, :http, Nba.FakeHttp.Stats)
 
-  test "creates functions for each endpoint" do
+    # then
     Parser.Stats.endpoints_by_name()
     |> Map.keys()
     |> Enum.each(fn endpoint_name ->
-      apply(Nba.Stats, :"#{endpoint_name}", [%{"dummy_key" => "dummy_value"}])
+      try do
+        {:ok, _} = apply(Nba.Stats, :"#{endpoint_name}", [%{"TeamID" => 1610612744}])
+        assert is_map(apply(Nba.Stats, :"#{endpoint_name}!", [%{"dummy_key" => "dummy_value"}]))
+      rescue
+        e in RuntimeError -> e.message
+      end
+    end)
+  end
+
+  test "endpoint function unhappy path" do
+    # given
+    Application.put_env(:nba, :http, Nba.FakeBadHttp)
+    expected_error_msg = "you done messed up"
+
+    # then
+    Parser.Stats.endpoints_by_name()
+    |> Map.keys()
+    |> Enum.each(fn endpoint_name -> 
+        assert_raise(RuntimeError, expected_error_msg, fn -> apply(Nba.Stats, :"#{endpoint_name}!", [%{}]) end)
+    end)
+
+    # then
+    Parser.Stats.endpoints_by_name()
+    |> Map.keys()
+    |> Enum.each(fn endpoint_name -> 
+        {:error, error} = apply(Nba.Stats, :"#{endpoint_name}", [%{}])
+        assert error == expected_error_msg
     end)
   end
 
