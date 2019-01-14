@@ -25,47 +25,58 @@ defmodule Nba.Parser.Stats do
   def endpoints_by_name(), do: @endpoints_by_name
 
   @spec transform_api_response({:ok | :error, map() | String.t()}) :: map() | tuple()
-  def transform_api_response({:ok, api_response}) do
-    case {api_response["resultSet"], api_response["resultSets"]} do
+  def transform_api_response({:ok, body} = unmodified_response) do
+    case {body["resultSet"], body["resultSets"]} do
       {nil, nil} ->
         {:error, "Error calling API"}
 
       {nil, result_sets} ->
-        build_and_zip(result_sets)
+        try do
+          {:ok, build_and_zip(result_sets)}
+        rescue
+          _ -> unmodified_response
+        end
 
       {result_set, nil} ->
-        key = result_set["name"]
-
-        value =
-          zip_single_row_set(result_set["rowSet"], result_set["headers"])
-          |> Enum.map(&Enum.into(&1, %{}))
-
-        {:ok, %{key => value}}
+        try do
+          {:ok, result_set_to_map(result_set)}
+        rescue
+          _ -> unmodified_response
+        end
+      
+      _ -> 
+        unmodified_response
     end
   end
 
   def transform_api_response({:error, message}), do: {:error, message}
 
-  defp zip_single_row_set(row_set, headers), do: Enum.map(row_set, &Enum.zip(headers, &1))
+  defp zip_row_set(row_set, headers), do: Enum.map(row_set, &Enum.zip(headers, &1))
+
+  defp result_set_to_map(result_set) do
+    key = result_set["name"]
+
+    value =
+      zip_row_set(result_set["rowSet"], result_set["headers"]) |> Enum.map(&Enum.into(&1, %{}))
+
+    %{key => value}
+  end
 
   defp build_and_zip(result_sets) when is_list(result_sets) do
-    result =
-      Enum.reduce(result_sets, %{}, fn result_set, acc ->
-        key = result_set["name"]
+    Enum.reduce(result_sets, %{}, fn result_set, acc ->
+      case result_set["headers"] do
+        [map | _] when is_map(map) ->
+          Map.merge(acc, build_and_zip(result_set))
 
-        value =
-          zip_single_row_set(result_set["rowSet"], result_set["headers"])
-          |> Enum.map(&Enum.into(&1, %{}))
-
-        Map.put(acc, key, value)
-      end)
-
-    {:ok, result}
+        [str | _] when is_binary(str) ->
+          Map.merge(acc, result_set_to_map(result_set))
+      end
+    end)
   end
 
   defp build_and_zip(result_sets) when is_map(result_sets) do
     [base_columns | parent_column_groups] = result_sets["headers"] |> Enum.reverse()
-    ungrouped_rows = zip_single_row_set(result_sets["rowSet"], base_columns["columnNames"])
+    ungrouped_rows = zip_row_set(result_sets["rowSet"], base_columns["columnNames"])
 
     result_key = result_sets["name"]
 
@@ -73,7 +84,7 @@ defmodule Nba.Parser.Stats do
       group_columns(parent_column_groups, ungrouped_rows)
       |> Enum.map(&Enum.into(&1, %{}))
 
-    {:ok, %{result_key => result_value}}
+    %{result_key => result_value}
   end
 
   defp build_and_zip(_), do: {:error, "Error parsing response"}

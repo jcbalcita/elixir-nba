@@ -164,6 +164,23 @@ defmodule Nba.Parser.StatsTest do
     assert result == {:ok, expected}
   end
 
+  test "as failsafe, returns unmodified json response if it's a weird shape or parsing otherwise fails" do
+    # given
+    http_response = %{
+      "resultSets" => %{
+        "name" => "Base Columns",
+        "columnNames" => ["Coolest Dude", "Power Level", "Repeat One", "Repeat Two", "Repeat One", "Repeat Two"],
+        "rowSet" => ["John Carlo", "Over 9000", 1, 2, 3, 4]
+      }
+    }
+
+    # when
+    result = Nba.Parser.Stats.transform_api_response({:ok, http_response})
+
+    # then
+    assert result == {:ok, http_response}
+  end
+
   defp get_endpoint_params(endpoints) do
     params_loop(endpoints, MapSet.new())
   end
