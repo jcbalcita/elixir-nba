@@ -329,6 +329,43 @@
       ]
     },
     {
+      "name": "player_defensive_dashboard",
+      "url": "https://stats.nba.com/stats/leaguedashptdefend",
+      "parameters": [
+        "PerMode",
+        "LeagueID",
+        "Season",
+        "SeasonType",
+        "PORound",
+        "PlayerID",
+        "TeamID",
+        "Outcome",
+        "Location",
+        "Month",
+        "SeasonSegment",
+        "DateFrom",
+        "DateTo",
+        "OpponentTeamID",
+        "VsConference",
+        "VsDivision",
+        "Conference",
+        "Division",
+        "GameSegment",
+        "Period",
+        "LastNGames",
+        "DraftYear",
+        "DraftPick",
+        "College",
+        "Country",
+        "Height",
+        "Weight",
+        "PlayerExperience",
+        "PlayerPosition",
+        "StarterBench",
+        "DefenseCategory"
+      ]
+    },
+    {
       "name": "team_player_dashboard",
       "url": "https://stats.nba.com/stats/teamplayerdashboard",
       "parameters": [
@@ -344,6 +381,7 @@
         "Location",
         "Month",
         "SeasonSegment",
+        "SeasonType",
         "DateFrom",
         "DateTo",
         "OpponentTeamID",
@@ -1626,6 +1664,16 @@
         "5ft Range",
         "8ft Range",
         "By Zone"
+      ]
+    },
+    {
+      "name": "DefenseCategory",
+      "default": "Overall",
+      "values": [
+        "Overall",
+        "3 pointers",
+        "2 pointers",
+        "Less than 6Ft"
       ]
     }
   ]

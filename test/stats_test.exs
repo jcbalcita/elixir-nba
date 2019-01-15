@@ -15,7 +15,7 @@ defmodule Nba.StatsTest do
         {:ok, _} = apply(Nba.Stats, :"#{endpoint_name}", [%{"TeamID" => 1610612744}])
         assert is_map(apply(Nba.Stats, :"#{endpoint_name}!", [%{"dummy_key" => "dummy_value"}]))
       rescue
-        e in RuntimeError -> e.message
+        _ -> assert false, "Endpoint #{endpoint_name} failed"
       end
     end)
   end
@@ -28,14 +28,14 @@ defmodule Nba.StatsTest do
     # then
     Parser.Stats.endpoints_by_name()
     |> Map.keys()
-    |> Enum.each(fn endpoint_name -> 
+    |> Enum.each(fn endpoint_name ->
         assert_raise(RuntimeError, expected_error_msg, fn -> apply(Nba.Stats, :"#{endpoint_name}!", [%{}]) end)
     end)
 
     # then
     Parser.Stats.endpoints_by_name()
     |> Map.keys()
-    |> Enum.each(fn endpoint_name -> 
+    |> Enum.each(fn endpoint_name ->
         {:error, error} = apply(Nba.Stats, :"#{endpoint_name}", [%{}])
         assert error == expected_error_msg
     end)
