@@ -84,8 +84,6 @@ defmodule Nba.Parser.Stats do
     %{result_key => result_value}
   end
 
-  defp build_and_zip(_), do: {:error, "Error parsing response"}
-
   defp group_columns([], result), do: result
 
   defp group_columns([group | rest], list_of_rows) do
@@ -96,8 +94,8 @@ defmodule Nba.Parser.Stats do
     updated_list =
       Enum.map(list_of_rows, fn row ->
         {skipped, to_group} = Enum.split(row, cols_to_skip)
-        chunks = Enum.chunk_every(to_group, group_size)
-        grouped = group_and_convert(group_names, chunks, [])
+        chunked = Enum.chunk_every(to_group, group_size)
+        grouped = group_and_convert(group_names, chunked, [])
 
         Enum.concat(skipped, grouped)
       end)
