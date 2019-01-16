@@ -4,8 +4,8 @@ defmodule Nba.MixProject do
   def project do
     [
       app: :nba,
-      version: "0.5.1",
-      elixir: "~> 1.7",
+      version: "0.6.0",
+      elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       package: package(),
       description: description(),
