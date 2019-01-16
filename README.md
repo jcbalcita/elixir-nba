@@ -34,7 +34,7 @@
   to get a list of the available query parameters for the endpoint.
 
   ```elixir
-    Nba.Stats.player_profile()
+    Nba.Stats.player_profile(:help)
     #=> ["LeagueID", "PerMode", "PlayerID"]
   ```
   If you need example values for a query param, use `Nba.Stats.values_for/1`.
