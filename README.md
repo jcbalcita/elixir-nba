@@ -18,7 +18,7 @@
 
   ```elixir
   def deps do
-    [{:nba, "~> 0.5.0"}]
+    [{:nba, "~> 0.6.0"}]
   end
   ```
 
