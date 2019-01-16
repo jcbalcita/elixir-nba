@@ -8,22 +8,31 @@ defmodule Nba.Stats do
       Nba.Stats.endpoints()
       #=> [:assist_tracker:, :box_score:, :box_score_summary:, ...]
 
-  Each endpoint has a corresponding function with an arity of 0 that
-  returns a list of the available query parameters for the endpoint.
+  Pass in the atom `:help` as a parameter to an endpoint function
+  to get a list of the available query parameters for the endpoint.
 
-      Nba.Stats.player_profile()
+      Nba.Stats.player_profile(:help)
       #=> ["LeagueID", "PerMode", "PlayerID"]
 
-  If you need example keys for a query param, use `Nba.Stats.keys_for/1`.
+  If you need example keys for a query param, use `Nba.Stats.values_for/1`.
   Note that you do not necessarily need to pass in values for all the keys listed.
 
-      Nba.Stats.keys_for("PerMode")
+      Nba.Stats.values_for("PerMode")
       #=> ["Totals", "PerGame", "MinutesPer", "Per48", ...]
 
-  Now that you know what query params you can pass, let's make
+  Now that you know what query params you can pass, we can make
   a call to the endpoint by passing in a map of query param
-  key/values. The functions with a `!` raise an exception if the
-  API call results in an error.
+  key/values.
+
+  The default argument for these functions is an empty map. Default values should be
+  filled in for the most part, but as the API is always changing, the app may not fill
+  in all the values correctly. Pay attention to the error message to see what was
+  missing from the API call.
+
+      Nba.Stats.player_profile()
+      #=> {:error, "PlayerID is required"}
+
+  Note: The functions with a `!` raise an exception if the API call results in an error.
 
       Nba.Stats.player_profile(%{"PlayerID" => 1628366})
       #=> {:ok, %{"CareerHighs" => ...}}
@@ -47,13 +56,9 @@ defmodule Nba.Stats do
   |> Enum.each(fn endpoint ->
     name = endpoint["name"]
 
-    @spec unquote(:"#{name}")() :: list(String.t())
-    @doc false
+    @spec unquote(:"#{name}")() :: {:ok | :error, map() | String.t()}
     def unquote(:"#{name}")() do
-      Parser.Stats.endpoints_by_name()
-      |> Map.get(unquote(name))
-      |> Map.get("parameters")
-      |> Enum.sort()
+      apply(__MODULE__, :"#{unquote(name)}", [%{}])
     end
 
     @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
@@ -68,8 +73,17 @@ defmodule Nba.Stats do
       |> Parser.Stats.transform_api_response()
     end
 
+    @spec unquote(:"#{name}")(:help) :: list(String.t())
+    @doc false
+    def unquote(:"#{name}")(:help) do
+      Parser.Stats.endpoints_by_name()
+      |> Map.get(unquote(name))
+      |> Map.get("parameters")
+      |> Enum.sort()
+    end
+
     @spec unquote(:"#{name}!")(map()) :: map()
-    def unquote(:"#{name}!")(user_input_map) do
+    def unquote(:"#{name}!")(user_input_map \\ %{}) do
       case apply(__MODULE__, :"#{unquote(name)}", [user_input_map]) do
         {:ok, result} -> result
         {:error, error} -> raise %RuntimeError{message: error}
@@ -86,9 +100,9 @@ defmodule Nba.Stats do
     |> Enum.map(&String.to_atom/1)
   end
 
-  @spec keys_for(String.t()) :: list(String.t())
+  @spec values_for(String.t()) :: list(String.t())
   @doc "Returns a list of valid query param keys for an endpoint"
-  def keys_for(param_name) do
+  def values_for(param_name) do
     param = Parser.Stats.params_by_name()[param_name]
     if param, do: param["values"], else: []
   end
@@ -96,7 +110,7 @@ defmodule Nba.Stats do
   defp build_query_string(user_input_map, valid_keys) do
     default_values_for(valid_keys)
     |> Map.merge(user_input_map)
-    |> QueryString.build(valid_keys)
+    |> QueryString.build()
   end
 
   @spec default_values_for(list(String.t())) :: map()

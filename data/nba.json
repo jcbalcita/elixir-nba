@@ -47,6 +47,43 @@
       ]
     },
     {
+      "name": "player_bio_stats",
+      "url": "https://stats.nba.com/stats/leaguedashplayerbiostats",
+      "parameters": [
+        "PerMode",
+        "LeagueID",
+        "Season",
+        "SeasonType",
+        "PORound",
+        "Outcome",
+        "Location",
+        "Month",
+        "SeasonSegment",
+        "DateFrom",
+        "DateTo",
+        "OpponentTeamID",
+        "VsConference",
+        "VsDivision",
+        "TeamID",
+        "Conference",
+        "Division",
+        "GameSegment",
+        "Period",
+        "ShotClockRange",
+        "LastNGames",
+        "GameScope",
+        "PlayerExperience",
+        "PlayerPosition",
+        "StarterBench",
+        "DraftYear",
+        "DraftPick",
+        "College",
+        "Country",
+        "Height",
+        "Weight"
+      ]
+    },
+    {
       "name": "team_shot_locations",
       "url": "https://stats.nba.com/stats/leaguedashteamshotlocations",
       "parameters": [
@@ -1375,26 +1412,12 @@
     },
     {
       "name": "GameScope",
-      "default": "",
+      "default": "Season",
       "values": [
-        ""
-      ]
-    },
-    {
-      "name": "Game_Scope",
-      "default": "",
-      "values": [
+        "Season",
         "Last 10",
         "Yesterday",
-        ""
-      ]
-    },
-    {
-      "name": "Player_or_Team",
-      "default": "P",
-      "values": [
-        "P",
-        "T"
+        "Finals"
       ]
     },
     {

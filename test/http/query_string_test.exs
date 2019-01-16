@@ -6,11 +6,10 @@ defmodule Nba.Http.QueryStringTest do
   test "builds query string from map" do
     # given
     expected = "?empty=&foo=bar&hello=world"
-    map = %{"hello" => "world", "foo" => "bar", "invalid" => "filter this out", "empty" => ""}
-    valid_parameters = ["hello", "foo", "empty"]
+    map = %{"hello" => "world", "foo" => "bar", "empty" => ""}
 
     # when
-    actual = QueryString.build(map, valid_parameters)
+    actual = QueryString.build(map)
 
     # then
     assert expected == actual
