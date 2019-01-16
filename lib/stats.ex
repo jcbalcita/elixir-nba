@@ -14,8 +14,7 @@ defmodule Nba.Stats do
       Nba.Stats.player_profile(:help)
       #=> ["LeagueID", "PerMode", "PlayerID"]
 
-  If you need example keys for a query param, use `Nba.Stats.values_for/1`.
-  Note that you do not necessarily need to pass in values for all the keys listed.
+  If you need example values for a query param, use `Nba.Stats.values_for/1`.
 
       Nba.Stats.values_for("PerMode")
       #=> ["Totals", "PerGame", "MinutesPer", "Per48", ...]
