@@ -62,7 +62,7 @@
 
   ```elixir
       Nba.Stats.player_profile(%{"PlayerID" => 1628366})
-      #=> {:ok, ...}
+      #=> {:ok, %{"CareerHighs" => ...}}
 
       Nba.Stats.player_profile!(%{"PlayerID" => 1628366})
       #=> %{"CareerHighs" => ...}
