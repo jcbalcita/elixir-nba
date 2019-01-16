@@ -55,9 +55,15 @@ defmodule Nba.Stats do
   |> Enum.each(fn endpoint ->
     name = endpoint["name"]
 
-    @spec unquote(:"#{name}")() :: {:ok | :error, map() | String.t()}
-    def unquote(:"#{name}")() do
-      apply(__MODULE__, :"#{unquote(name)}", [%{}])
+    def unquote(:"#{name}")(user_input \\ %{})
+
+    @spec unquote(:"#{name}")(:help) :: list(String.t())
+    @doc false
+    def unquote(:"#{name}")(:help) do
+      Parser.Stats.endpoints_by_name()
+      |> Map.get(unquote(name))
+      |> Map.get("parameters")
+      |> Enum.sort()
     end
 
     @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
@@ -70,15 +76,6 @@ defmodule Nba.Stats do
       (url <> query_string)
       |> http().get(Parser.headers())
       |> Parser.Stats.transform_api_response()
-    end
-
-    @spec unquote(:"#{name}")(:help) :: list(String.t())
-    @doc false
-    def unquote(:"#{name}")(:help) do
-      Parser.Stats.endpoints_by_name()
-      |> Map.get(unquote(name))
-      |> Map.get("parameters")
-      |> Enum.sort()
     end
 
     @spec unquote(:"#{name}!")(map()) :: map()
