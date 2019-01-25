@@ -71,7 +71,6 @@
         "Period",
         "ShotClockRange",
         "LastNGames",
-        "GameScope",
         "PlayerExperience",
         "PlayerPosition",
         "StarterBench",
@@ -92,7 +91,6 @@
         "DateTo",
         "DistanceRange",
         "Division",
-        "GameScope",
         "GameSegment",
         "LastNGames",
         "LeagueID",
@@ -132,7 +130,6 @@
         "Division",
         "DraftPick",
         "DraftYear",
-        "GameScope",
         "GameSegment",
         "Height",
         "LastNGames",
@@ -186,7 +183,6 @@
         "GameSegment",
         "Period",
         "LastNGames",
-        "GameScope",
         "PlayerExperience",
         "PlayerPosition",
         "StarterBench"
@@ -216,8 +212,7 @@
         "VsDivision",
         "GameSegment",
         "Period",
-        "LastNGames",
-        "GameScope"
+        "LastNGames"
       ]
     },
     {
@@ -285,7 +280,6 @@
         "GameSegment",
         "Period",
         "LastNGames",
-        "GameScope",
         "PlayerExperience",
         "PlayerPosition",
         "StarterBench"
@@ -479,7 +473,6 @@
         "VsConference",
         "VsDivision",
         "LastNGames",
-        "GameScope",
         "PlayerExperience",
         "PlayerPosition",
         "StarterBench",
@@ -490,7 +483,6 @@
       "name": "homepage_v2",
       "url": "https://stats.nba.com/stats/homepagev2",
       "parameters": [
-        "GameScope",
         "LeagueID",
         "PlayerOrTeam",
         "PlayerScope",
@@ -521,7 +513,6 @@
         "Division",
         "DraftPick",
         "DraftYear",
-        "GameScope",
         "GameSegment",
         "Height",
         "LastNGames",
@@ -564,7 +555,6 @@
         "Division",
         "DraftPick",
         "DraftYear",
-        "GameScope",
         "GameSegment",
         "Height",
         "LastNGames",
@@ -604,7 +594,6 @@
         "DateFrom",
         "DateTo",
         "Division",
-        "GameScope",
         "GameSegment",
         "LastNGames",
         "LeagueID",
@@ -646,7 +635,6 @@
         "DraftPick",
         "DraftYear",
         "DribbleRange",
-        "GameScope",
         "GameSegment",
         "GeneralRange",
         "Height",
@@ -691,7 +679,6 @@
         "DraftPick",
         "DraftYear",
         "DribbleRange",
-        "GameScope",
         "GameSegment",
         "GeneralRange",
         "Height",
@@ -762,7 +749,6 @@
       "name": "player_hustle_leaders",
       "url": "https://stats.nba.com/stats/leaguehustlestatsplayerleaders",
       "parameters": [
-        "GameScope",
         "LeagueID",
         "PerMode",
         "PlayerOrTeam",
@@ -775,7 +761,6 @@
       "name": "team_hustle_leaders",
       "url": "https://stats.nba.com/stats/leaguehustlestatsteamleaders",
       "parameters": [
-        "GameScope",
         "LeagueID",
         "PerMode",
         "PlayerOrTeam",
@@ -796,7 +781,6 @@
         "Division",
         "DraftPick",
         "DraftYear",
-        "GameScope",
         "GameSegment",
         "Height",
         "LastNGames",
@@ -836,7 +820,6 @@
         "Division",
         "DraftPick",
         "DraftYear",
-        "GameScope",
         "GameSegment",
         "Height",
         "LastNGames",
@@ -1412,12 +1395,10 @@
     },
     {
       "name": "GameScope",
-      "default": "Season",
+      "default": "Last 10",
       "values": [
-        "Season",
         "Last 10",
-        "Yesterday",
-        "Finals"
+        "Yesterday"
       ]
     },
     {
