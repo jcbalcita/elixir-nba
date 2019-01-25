@@ -1,8 +1,9 @@
 defmodule Nba.Http do
   @moduledoc false
+  require Logger
 
   def get(url, headers) do
-    IO.puts("Fetching – #{url}")
+    Logger.info("Fetching – #{url}")
 
     case HTTPoison.get(url, headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: response_headers}} ->
