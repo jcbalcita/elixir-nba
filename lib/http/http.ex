@@ -5,7 +5,7 @@ defmodule Nba.Http do
   def get(url, headers) do
     Logger.info("Fetching – #{url}")
 
-    case HTTPoison.get(url, headers) do
+    case HTTPoison.get(url, headers, recv_timeout: 15000, timeout: 15000) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: response_headers}} ->
         {:ok, handle_response(body, response_headers)}
 
@@ -34,4 +34,7 @@ defmodule Nba.Http do
 
     if gzip?, do: :zlib.gunzip(body), else: body
   end
+
+  @spec query_string_from_map(map()) :: String.t()
+  defp query_string_from_map(parameter_map), do: "?" <> URI.encode_query(parameter_map)
 end

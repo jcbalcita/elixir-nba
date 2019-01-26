@@ -47,7 +47,7 @@ defmodule Nba.Stats do
   """
 
   alias Nba.Parser
-  alias Nba.Http.QueryString
+  alias Nba.Http
 
   defp http, do: Application.get_env(:nba, :http, Nba.Http)
 
@@ -105,7 +105,7 @@ defmodule Nba.Stats do
   defp build_query_string(user_input_map, valid_keys) do
     default_values_for(valid_keys)
     |> Map.merge(user_input_map)
-    |> QueryString.build()
+    |> Http.query_string_from_map()
   end
 
   @spec default_values_for(list(String.t())) :: map()
