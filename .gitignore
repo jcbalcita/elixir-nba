@@ -28,3 +28,4 @@ NOTES.txt
 .DS_store
 js/
 *.tar
+util/output.json
