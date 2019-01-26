@@ -24,7 +24,6 @@
       "parameters": [
         "DateFrom",
         "DateTo",
-        "GameSegment",
         "LastNGames",
         "LeagueID",
         "Location",
@@ -40,9 +39,7 @@
         "PlusMinus",
         "Rank",
         "Season",
-        "SeasonSegment",
         "SeasonType",
-        "ShotClockRange",
         "VsConference",
         "VsDivision"
       ]
@@ -962,7 +959,7 @@
     },
     {
       "name": "PlayerID",
-      "default": "1",
+      "default": "",
       "values": [
         "0"
       ]
