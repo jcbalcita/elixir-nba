@@ -48,7 +48,7 @@ defmodule Nba.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:poison, "~> 4.0"},
+      {:jason, "~> 1.1"},
       {:httpoison, "~> 1.4"},
       {:ex_doc, "~> 0.19", only: :dev},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false}

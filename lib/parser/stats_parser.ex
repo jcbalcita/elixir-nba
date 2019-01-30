@@ -1,9 +1,10 @@
 defmodule Nba.Parser.Stats do
   @moduledoc false
+  alias Nba.Json
 
   @external_resource json_path = Path.join([__DIR__, "../../data/nba.json"])
   @endpoints with {:ok, body} <- File.read(json_path),
-                  {:ok, json} <- Poison.decode(body),
+                  {:ok, json} <- Json.decode(body),
                   do: json
   @endpoints_by_name Enum.reduce(@endpoints["stats_endpoints"], %{}, fn p, acc ->
                        Map.put(acc, p["name"], p)

@@ -1,6 +1,7 @@
 defmodule Nba.Http do
   @moduledoc false
   require Logger
+  alias Nba.Json
 
   def get(url, headers) do
     Logger.info("Fetching – #{url}")
@@ -15,14 +16,14 @@ defmodule Nba.Http do
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
 
-      _ -> 
+      _ ->
         {:error, "Error calling API"}
     end
   end
 
   defp handle_response(body, response_headers) do
     maybe_unzip(body, response_headers)
-    |> Poison.decode!()
+    |> Json.decode!()
   end
 
   defp maybe_unzip(body, headers) do
@@ -36,5 +37,5 @@ defmodule Nba.Http do
   end
 
   @spec query_string_from_map(map()) :: String.t()
-  defp query_string_from_map(parameter_map), do: "?" <> URI.encode_query(parameter_map)
+  def query_string_from_map(parameter_map), do: "?" <> URI.encode_query(parameter_map)
 end
