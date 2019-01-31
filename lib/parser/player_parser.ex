@@ -1,12 +1,11 @@
 defmodule Nba.Parser.Player do
   @moduledoc false
-  alias Nba.Json
 
   @external_resource json_path = Path.join([__DIR__, "../../data/players.json"])
   @players with {:ok, body} <- File.read(json_path),
-                {:ok, json} <- Json.decode(body),
+                {:ok, data} <- Nba.json_library().decode(body),
                 do:
-                  Enum.map(json, fn p ->
+                  Enum.map(data, fn p ->
                     Map.new(p, fn {k, v} -> {Macro.underscore(k), v} end)
                   end)
   @players_by_id Enum.reduce(@players, %{}, fn p, acc ->

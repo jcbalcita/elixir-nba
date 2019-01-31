@@ -1,7 +1,6 @@
 defmodule Nba.Http do
   @moduledoc false
   require Logger
-  alias Nba.Json
 
   def get(url, headers) do
     Logger.info("Fetching – #{url}")
@@ -23,7 +22,7 @@ defmodule Nba.Http do
 
   defp handle_response(body, response_headers) do
     maybe_unzip(body, response_headers)
-    |> Json.decode!()
+    |> Nba.json_library().decode!()
   end
 
   defp maybe_unzip(body, headers) do

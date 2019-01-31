@@ -1,10 +1,9 @@
 defmodule Nba.FakeHttp.Data do
-  alias Nba.Json
 
   @external_resource json_path = Path.join([__DIR__, "simple_schedule_response.json"])
   @response with {:ok, body} <- File.read(json_path),
-                 {:ok, json} <- Json.decode(body),
-                 do: json
+                 {:ok, data} <- Nba.json_library().decode(body),
+                 do: data
 
   def get(url) do
     case URI.parse(url) do

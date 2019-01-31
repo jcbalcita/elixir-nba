@@ -2,12 +2,9 @@ defmodule Nba.Data do
   alias Nba.Parser
 
   @schedule_url "https://data.nba.com/data/10s/v2015/json/mobile_teams/nba/2018/league/00_full_schedule_week.json"
+  @minimum_similarity 0.83
 
   defp http, do: Application.get_env(:nba, :http, Nba.Http)
-
-  alias Nba.Parser
-
-  @minimum_similarity 0.83
 
   @doc """
   Returns a list of players sorted by best match.
