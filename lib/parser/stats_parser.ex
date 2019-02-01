@@ -12,19 +12,19 @@ defmodule Nba.Parser.Stats do
                     Map.put(acc, p["name"], p)
                   end)
 
-  @spec parameters :: list(map())
+  @spec parameters :: list(map)
   def parameters, do: @endpoints["parameters"]
 
-  @spec params_by_name :: map()
+  @spec params_by_name :: map
   def params_by_name, do: @params_by_name
 
-  @spec endpoints :: map()
+  @spec endpoints :: map
   def endpoints, do: @endpoints["stats_endpoints"]
 
-  @spec endpoints_by_name :: map()
+  @spec endpoints_by_name :: map
   def endpoints_by_name(), do: @endpoints_by_name
 
-  @spec transform_api_response({:ok | :error, map() | String.t()}) :: map() | tuple()
+  @spec transform_api_response({:ok | :error, map | String.t}) :: map | tuple
   def transform_api_response({:ok, body} = unmodified_response) do
     case {body["resultSet"], body["resultSets"]} do
       {nil, nil} ->

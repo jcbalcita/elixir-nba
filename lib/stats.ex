@@ -65,7 +65,7 @@ defmodule Nba.Stats do
       |> Enum.sort()
     end
 
-    @spec unquote(:"#{name}")(map()) :: {:ok | :error, map() | String.t()}
+    @spec unquote(:"#{name}")(map) :: {:ok | :error, map | String.t}
     def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
       endpoint = Parser.Stats.endpoints_by_name()[unquote(name)]
       valid_keys = Map.get(endpoint, "parameters")
@@ -77,7 +77,7 @@ defmodule Nba.Stats do
       |> Parser.Stats.transform_api_response()
     end
 
-    @spec unquote(:"#{name}!")(map()) :: map()
+    @spec unquote(:"#{name}!")(map) :: map
     def unquote(:"#{name}!")(user_input_map \\ %{}) do
       case apply(__MODULE__, :"#{unquote(name)}", [user_input_map]) do
         {:ok, result} -> result
@@ -87,7 +87,7 @@ defmodule Nba.Stats do
     end
   end)
 
-  @spec endpoints() :: list(atom())
+  @spec endpoints() :: list(atom)
   @doc "Returns a list of atoms, one for each endpoint function in the Stats module"
   def endpoints() do
     Parser.Stats.endpoints()
@@ -95,7 +95,7 @@ defmodule Nba.Stats do
     |> Enum.map(&String.to_atom/1)
   end
 
-  @spec values_for(String.t()) :: list(String.t())
+  @spec values_for(String.t) :: list(String.t)
   @doc "Returns a list of valid query param keys for an endpoint"
   def values_for(param_name) do
     param = Parser.Stats.params_by_name()[param_name]
@@ -108,7 +108,7 @@ defmodule Nba.Stats do
     |> Http.query_string_from_map()
   end
 
-  @spec default_values_for(list(String.t())) :: map()
+  @spec default_values_for(list(String.t)) :: map
   defp default_values_for(parameter_keys) do
     parameter_keys
     |> Enum.reduce(%{}, fn key, acc ->

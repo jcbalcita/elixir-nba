@@ -32,7 +32,7 @@ defmodule Nba.Data do
         "team_id" => 1610612741
       }]
   """
-  @spec find_player(list(tuple()) | String.t()) :: list(map())
+  @spec find_player(list(tuple) | String.t) :: list(map)
   def find_player(first_name: first_name) do
     Parser.Player.players()
     |> Enum.filter(fn p ->
@@ -95,7 +95,7 @@ defmodule Nba.Data do
         "team_id" => 1610612740
       }
   """
-  @spec find_player!(list(tuple()) | String.t()) :: map() | nil
+  @spec find_player!(list(tuple) | String.t) :: map | nil
   def find_player!(first_name: first_name) do
     find_player(first_name: first_name) |> List.first()
   end

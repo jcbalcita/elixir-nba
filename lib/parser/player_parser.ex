@@ -12,9 +12,9 @@ defmodule Nba.Parser.Player do
                    Map.put(acc, p["player_id"], p)
                  end)
 
-  @spec players :: list(map())
+  @spec players :: list(map)
   def players, do: @players
 
-  @spec players_by_id :: map()
+  @spec players_by_id :: map
   def players_by_id, do: @players_by_id
 end
