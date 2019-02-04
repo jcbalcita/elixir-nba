@@ -5,7 +5,7 @@ defmodule Nba.Http do
   def get(url, headers) do
     Logger.info("Fetching – #{url}")
 
-    case HTTPoison.get(url, headers, recv_timeout: 15000, timeout: 15000) do
+    case HTTPoison.get(url, headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: response_headers}} ->
         {:ok, handle_response(body, response_headers)}
 
