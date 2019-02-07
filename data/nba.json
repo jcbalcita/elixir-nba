@@ -334,6 +334,13 @@
       ]
     },
     {
+      "name": "box_score_defensive",
+      "url": "https://stats.nba.com/stats/boxscoredefensive",
+      "parameters": [
+        "GameID"
+      ]
+    },
+    {
       "name": "play_by_play",
       "url": "https://stats.nba.com/stats/playbyplay",
       "parameters": [
