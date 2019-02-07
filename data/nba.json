@@ -327,6 +327,13 @@
       ]
     },
     {
+      "name": "box_score_matchups",
+      "url": "https://stats.nba.com/stats/boxscorematchups",
+      "parameters": [
+        "GameID"
+      ]
+    },
+    {
       "name": "play_by_play",
       "url": "https://stats.nba.com/stats/playbyplay",
       "parameters": [
