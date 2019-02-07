@@ -341,6 +341,20 @@
       ]
     },
     {
+      "name": "box_score_player_track",
+      "url": "https://stats.nba.com/stats/boxscoreplayertrackv2",
+      "parameters": [
+        "GameID"
+      ]
+    },
+    {
+      "name": "box_score_hustle",
+      "url": "https://stats.nba.com/stats/hustlestatsboxscore",
+      "parameters": [
+        "GameID"
+      ]
+     },
+    {
       "name": "play_by_play",
       "url": "https://stats.nba.com/stats/playbyplay",
       "parameters": [
