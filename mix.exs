@@ -4,7 +4,7 @@ defmodule Nba.MixProject do
   def project do
     [
       app: :nba,
-      version: "0.6.2",
+      version: "0.7.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -50,9 +50,9 @@ defmodule Nba.MixProject do
     [
       {:httpoison, "~> 1.4"},
       {:jason, "~> 1.1", optional: true},
-      {:poison, "~> 4.0", only: [:dev, :test]},
       {:ex_doc, "~> 0.19", only: [:dev]},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:poison, "~> 4.0", only: [:test]}
     ]
   end
 end

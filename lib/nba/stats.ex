@@ -33,16 +33,16 @@ defmodule Nba.Stats do
 
   Note: The functions with a `!` raise an exception if the API call results in an error.
 
-      Nba.Stats.player_profile(%{"PlayerID" => 1628366})
+      Nba.Stats.player_profile(PlayerID: 1628366})
       #=> {:ok, %{"CareerHighs" => ...}}
 
-      Nba.Stats.player_profile(%{"PlayerID" => "Go Bruins"})
+      Nba.Stats.player_profile(PlayerID: "Go Bruins"})
       #=> {:error, "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
 
-      Nba.Stats.player_profile!(%{"PlayerID" => 1628366})
+      Nba.Stats.player_profile!(PlayerID: 1628366})
       #=> %{"CareerHighs" => ...}
 
-      Nba.Stats.player_profile!(%{"PlayerID" => "Go Bruins"})
+      Nba.Stats.player_profile!(PlayerID: "Go Bruins"})
       #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required
   """
 
@@ -63,9 +63,11 @@ defmodule Nba.Stats do
       |> Map.get(unquote(name))
       |> Map.get("parameters")
       |> Enum.sort()
+      |> Enum.map(&String.to_atom/1)
     end
 
     @spec unquote(:"#{name}")(map) :: {:ok | :error, map | String.t}
+    @doc false
     def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
       endpoint = Parser.Stats.endpoints_by_name()[unquote(name)]
       valid_keys = Map.get(endpoint, "parameters")
@@ -75,6 +77,11 @@ defmodule Nba.Stats do
       (url <> query_string)
       |> http().get(Parser.headers())
       |> Parser.Stats.transform_api_response()
+    end
+
+    @spec unquote(:"#{name}")(list(tuple)) :: {:ok | :error, map | String.t}
+    def unquote(:"#{name}")(options) when is_list(options) do
+      apply(__MODULE__, :"#{unquote(name)}", [Enum.into(options, %{})])
     end
 
     @spec unquote(:"#{name}!")(map) :: map
