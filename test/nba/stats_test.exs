@@ -12,8 +12,9 @@ defmodule Nba.StatsTest do
     |> Map.keys()
     |> Enum.each(fn endpoint_name ->
       try do
-        {:ok, _} = apply(Nba.Stats, :"#{endpoint_name}", []) # use empty map as default argument
-        assert is_map(apply(Nba.Stats, :"#{endpoint_name}!", [%{"dummy_key" => "dummy_value"}]))
+        args_list = [{:test_key_one, "test_value"}, {:test_key_two, "test_value"}]
+        {:ok, result} = apply(Nba.Stats, :"#{endpoint_name}", [args_list]) 
+        assert is_map(result)
       rescue
         _ -> assert false, "Endpoint #{endpoint_name} failed"
       end
@@ -29,14 +30,14 @@ defmodule Nba.StatsTest do
     Parser.Stats.endpoints_by_name()
     |> Map.keys()
     |> Enum.each(fn endpoint_name ->
-        assert_raise(RuntimeError, expected_error_msg, fn -> apply(Nba.Stats, :"#{endpoint_name}!", [%{}]) end)
+        assert_raise(RuntimeError, expected_error_msg, fn -> apply(Nba.Stats, :"#{endpoint_name}!", []) end)
     end)
 
     # then
     Parser.Stats.endpoints_by_name()
     |> Map.keys()
     |> Enum.each(fn endpoint_name ->
-        {:error, error} = apply(Nba.Stats, :"#{endpoint_name}", [%{}])
+        {:error, error} = apply(Nba.Stats, :"#{endpoint_name}", [])
         assert error == expected_error_msg
     end)
   end

@@ -67,7 +67,6 @@ defmodule Nba.Stats do
     end
 
     @spec unquote(:"#{name}")(map) :: {:ok | :error, map | String.t}
-    @doc false
     def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
       endpoint = Parser.Stats.endpoints_by_name()[unquote(name)]
       valid_keys = Map.get(endpoint, "parameters")
