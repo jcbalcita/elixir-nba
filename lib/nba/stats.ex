@@ -101,10 +101,10 @@ defmodule Nba.Stats do
     |> Enum.map(&String.to_atom/1)
   end
 
-  @spec values_for(String.t) :: list(String.t)
+  @spec values_for(String.t | atom) :: list(String.t)
   @doc "Returns a list of valid query param keys for an endpoint"
   def values_for(param_name) do
-    param = Parser.Stats.params_by_name()[param_name]
+    param = Parser.Stats.params_by_name()["#{param_name}"]
     if param, do: param["values"], else: []
   end
 
