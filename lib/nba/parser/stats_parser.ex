@@ -67,6 +67,9 @@ defmodule Nba.Parser.Stats do
 
         [str | _] when is_binary(str) ->
           Map.merge(acc, result_set_to_map(result_set))
+        
+        _ -> 
+          acc
       end
     end)
   end
