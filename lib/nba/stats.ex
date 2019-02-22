@@ -12,37 +12,36 @@ defmodule Nba.Stats do
   to get a list of the available query parameters for the endpoint.
 
       Nba.Stats.player_profile(:help)
-      #=> ["LeagueID", "PerMode", "PlayerID"]
+      #=> [:LeagueID, :PerMode, :PlayerID]
 
   If you need example values for a query param, use `Nba.Stats.values_for/1`.
 
       Nba.Stats.values_for("PerMode")
-      #=> ["Totals", "PerGame", "MinutesPer", "Per48", ...]
+      #=> ["Totals", "PerGame", "MinutesPer", "Per36"]
 
-  Now that you know what query params you can pass, we can make
-  a call to the endpoint by passing in a map of query param
-  key/values.
-
-  The default argument for these functions is an empty map. Default values should be
-  filled in for the most part, but as the API is always changing, the app may not fill
-  in all the values correctly. Pay attention to the error message to see what was
-  missing from the API call.
+  Boilerplate default values should be filled in for the most part, but as the API is
+  always changing, the app may not fill in all the values correctly. Pay attention to
+  the error message to see what was missing from the API call.
 
       Nba.Stats.player_profile()
       #=> {:error, "PlayerID is required"}
 
-  Note: The functions with a `!` raise an exception if the API call results in an error.
+  Now that you know what query params you can pass, we can make a call to the endpoint
+  by passing in a list of tuples to the endpoint function. Alternatively, you have the
+  option of passing in a map.
 
-      Nba.Stats.player_profile(PlayerID: 1628366})
+      Nba.Stats.player_profile(PlayerID: 1628366, PerMode: "Totals")
       #=> {:ok, %{"CareerHighs" => ...}}
 
-      Nba.Stats.player_profile(PlayerID: "Go Bruins"})
+      Nba.Stats.player_profile(%{"PlayerID" => 1628366, "PerMode" => "Totals"})
+      #=> {:ok, %{"CareerHighs" => ...}}
+
+      Nba.Stats.player_profile(PlayerID: "Go Bruins")
       #=> {:error, "The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required"}
 
-      Nba.Stats.player_profile!(PlayerID: 1628366})
-      #=> %{"CareerHighs" => ...}
+  Note: The functions with a `!` raise an exception if the API call results in an error.
 
-      Nba.Stats.player_profile!(PlayerID: "Go Bruins"})
+      Nba.Stats.player_profile!(PlayerID: "Go Bruins")
       #=> ** (RuntimeError) The value 'Go Bruins' is not valid for PlayerID.; PlayerID is required
   """
 

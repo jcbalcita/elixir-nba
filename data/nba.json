@@ -1020,15 +1020,7 @@
       "values": [
         "Totals",
         "PerGame",
-        "MinutesPer",
-        "Per48",
-        "Per40",
         "Per36",
-        "PerMinute",
-        "PerPossession",
-        "PerPlay",
-        "Per100Possessions",
-        "Per100Plays"
       ]
     },
     {
