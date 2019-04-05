@@ -4,7 +4,7 @@ name = ARGV[0]
 full_url = ARGV[1]
 split_url = full_url.split("?")
 
-url, query_string = split_url.first + "?", split_url.last
+url, query_string = split_url.first, split_url.last
 
 query_keys = query_string
   .split("&")
@@ -12,7 +12,7 @@ query_keys = query_string
 
 endpoint = {
   name: name,
-  url: url, 
+  url: url,
   parameters: query_keys
 }
 
