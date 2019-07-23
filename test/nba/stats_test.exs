@@ -13,7 +13,7 @@ defmodule Nba.StatsTest do
     |> Enum.each(fn endpoint_name ->
       try do
         args_list = [{:test_key_one, "test_value"}, {:test_key_two, "test_value"}]
-        {:ok, result} = apply(Nba.Stats, :"#{endpoint_name}", [args_list]) 
+        {:ok, result} = apply(Nba.Stats, :"#{endpoint_name}", [args_list])
         assert is_map(result)
       rescue
         _ -> assert false, "Endpoint #{endpoint_name} failed"
@@ -65,5 +65,17 @@ defmodule Nba.StatsTest do
 
     # then
     assert(expected == actual)
+  end
+
+  test "user input map overrides defaults (string/atom merge issue)" do
+    # given
+    user_input_map = %{PlayerID: 100}
+    valid_keys = ["PlayerID"]
+
+    # when
+    actual = Nba.Stats.build_query_string(user_input_map, valid_keys)
+
+    #then
+    assert actual == "?PlayerID=100"
   end
 end

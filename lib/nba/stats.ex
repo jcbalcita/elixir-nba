@@ -107,7 +107,8 @@ defmodule Nba.Stats do
     if param, do: param["values"], else: []
   end
 
-  defp build_query_string(user_input_map, valid_keys) do
+  @doc false
+  def build_query_string(user_input_map, valid_keys) do
     str_keyed =
       user_input_map
       |> Map.new(fn {k, v} -> {Atom.to_string(k), v} end)
