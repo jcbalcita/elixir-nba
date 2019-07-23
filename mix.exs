@@ -4,7 +4,7 @@ defmodule Nba.MixProject do
   def project do
     [
       app: :nba,
-      version: "0.7.0",
+      version: "0.8.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -48,7 +48,7 @@ defmodule Nba.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 1.4"},
+      {:httpoison, "~> 1.5"},
       {:jason, "~> 1.1", optional: true},
       {:ex_doc, "~> 0.19", only: [:dev]},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},

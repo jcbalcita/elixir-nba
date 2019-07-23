@@ -24,6 +24,8 @@ elixir_nba-*.tar
 
 /.vscode/
 
+.elixir_ls/
+
 NOTES.txt
 .DS_store
 js/
