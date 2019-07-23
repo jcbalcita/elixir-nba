@@ -22,4 +22,18 @@ defmodule Nba.Parser.PlayerTest do
       assert players_by_id[id] == p
     end)
   end
+
+  # test "can be configured to read a specific players json file" do
+  #   # when
+  #   players = Parser.Player.players()
+
+  #   # then
+  #   assert Enum.count(players) == 2
+  #   IO.inspect(players)
+
+  #   player_one = Enum.at(players, 0)
+  #   player_two = Enum.at(players, 1)
+  #   assert player_one["player_id"] == 10
+  #   assert player_two["player_id"] == 11
+  # end
 end

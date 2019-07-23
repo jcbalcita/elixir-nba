@@ -1,7 +1,13 @@
 defmodule Nba.Parser.Player do
   @moduledoc false
 
-  @external_resource json_path = Path.join([__DIR__, "../../../data/players.json"])
+  @external_resource json_path =
+                       Application.get_env(
+                         :nba,
+                         :player_json_path,
+                         Path.join([__DIR__, "../../../data/players.json"])
+                       )
+
   @players with {:ok, body} <- File.read(json_path),
                 {:ok, data} <- Nba.json_library().decode(body),
                 do:

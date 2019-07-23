@@ -1,7 +1,12 @@
 defmodule Nba.Parser.Stats do
   @moduledoc false
 
-  @external_resource json_path = Path.join([__DIR__, "../../../data/nba.json"])
+  @external_resource json_path =
+                       Application.get_env(
+                         :nba,
+                         :endpoint_json_path,
+                         Path.join([__DIR__, "../../../data/endpoints.json"])
+                       )
   @endpoints with {:ok, body} <- File.read(json_path),
                   {:ok, data} <- Nba.json_library().decode(body),
                   do: data
@@ -24,7 +29,7 @@ defmodule Nba.Parser.Stats do
   @spec endpoints_by_name :: map
   def endpoints_by_name(), do: @endpoints_by_name
 
-  @spec transform_api_response({:ok | :error, map | String.t}) :: map | tuple
+  @spec transform_api_response({:ok | :error, map | String.t()}) :: map | tuple
   def transform_api_response({:ok, body} = unmodified_response) do
     case {body["resultSet"], body["resultSets"]} do
       {nil, nil} ->
@@ -67,8 +72,8 @@ defmodule Nba.Parser.Stats do
 
         [str | _] when is_binary(str) ->
           Map.merge(acc, result_set_to_map(result_set))
-        
-        _ -> 
+
+        _ ->
           acc
       end
     end)

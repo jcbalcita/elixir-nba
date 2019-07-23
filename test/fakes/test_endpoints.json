@@ -1,0 +1,18 @@
+{
+    "stats_endpoints": [
+      {
+        "name": "largest_son",
+        "url": "https://stats.nba.com/stats/largest_son",
+        "parameters": [
+          "weight"
+        ]
+      }
+    ],
+    "parameters": [{
+        "name": "weight",
+        "default": "",
+        "values": [
+          "0"
+        ]
+    }]
+}

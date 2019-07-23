@@ -181,6 +181,21 @@ defmodule Nba.Parser.StatsTest do
     assert result == {:ok, unexpected_but_valid_http_response}
   end
 
+  # test "can read stats endpoints from custom endpoint json file" do
+  #   # when
+  #   endpoints = Parser.Stats.endpoints()
+  #   endpoints_by_name = Parser.Stats.endpoints_by_name()
+
+  #   # then
+  #   assert Enum.count(endpoints) == 1
+  #   assert List.first(endpoints) |> Map.get("name") == "largest_son"
+
+  #   Enum.each(endpoints, fn e ->
+  #     assert Map.has_key?(e, "name") && Map.has_key?(e, "url") && Map.has_key?(e, "parameters")
+  #     assert Map.get(endpoints_by_name, e["name"]) == e
+  #   end)
+  # end
+
   defp get_endpoint_params(endpoints) do
     params_loop(endpoints, MapSet.new())
   end
