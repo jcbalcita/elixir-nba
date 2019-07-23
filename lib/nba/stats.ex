@@ -108,8 +108,12 @@ defmodule Nba.Stats do
   end
 
   defp build_query_string(user_input_map, valid_keys) do
+    str_keyed =
+      user_input_map
+      |> Map.new(fn {k, v} -> {Atom.to_string(k), v} end)
+
     default_values_for(valid_keys)
-    |> Map.merge(user_input_map)
+    |> Map.merge(str_keyed)
     |> Http.query_string_from_map()
   end
 

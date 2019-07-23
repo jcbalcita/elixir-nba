@@ -36,5 +36,8 @@ defmodule Nba.Http do
   end
 
   @spec query_string_from_map(map()) :: String.t()
-  def query_string_from_map(parameter_map), do: "?" <> URI.encode_query(parameter_map)
+  def query_string_from_map(parameter_map) do
+    IO.inspect(parameter_map)
+    "?" <> URI.encode_query(parameter_map)
+  end
 end
