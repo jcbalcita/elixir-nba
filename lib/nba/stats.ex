@@ -54,7 +54,7 @@ defmodule Nba.Stats do
   |> Enum.each(fn endpoint ->
     name = endpoint["name"]
 
-    def unquote(:"#{name}")(user_input \\ %{})
+    def unquote(:"#{name}")(params \\ %{})
 
     @spec unquote(:"#{name}")(:help) :: list(String.t())
     def unquote(:"#{name}")(:help) do
@@ -66,11 +66,11 @@ defmodule Nba.Stats do
     end
 
     @spec unquote(:"#{name}")(map) :: {:ok | :error, map | String.t}
-    def unquote(:"#{name}")(user_input_map) when is_map(user_input_map) do
+    def unquote(:"#{name}")(params) when is_map(params) do
       endpoint = Parser.Stats.endpoints_by_name()[unquote(name)]
       valid_keys = Map.get(endpoint, "parameters")
       url = Map.get(endpoint, "url")
-      query_string = build_query_string(user_input_map, valid_keys)
+      query_string = build_query_string(params, valid_keys)
 
       (url <> query_string)
       |> http().get(Parser.headers())
@@ -78,13 +78,13 @@ defmodule Nba.Stats do
     end
 
     @spec unquote(:"#{name}")(list(tuple)) :: {:ok | :error, map | String.t}
-    def unquote(:"#{name}")(options) when is_list(options) do
-      apply(__MODULE__, :"#{unquote(name)}", [Enum.into(options, %{})])
+    def unquote(:"#{name}")(params) when is_list(params) do
+      apply(__MODULE__, :"#{unquote(name)}", [Enum.into(params, %{})])
     end
 
     @spec unquote(:"#{name}!")(map) :: map
-    def unquote(:"#{name}!")(user_input_map \\ %{}) do
-      case apply(__MODULE__, :"#{unquote(name)}", [user_input_map]) do
+    def unquote(:"#{name}!")(params \\ %{}) do
+      case apply(__MODULE__, :"#{unquote(name)}", [params]) do
         {:ok, result} -> result
         {:error, error} -> raise %RuntimeError{message: error}
         _ -> raise %RuntimeError{message: "Error calling API"}
@@ -109,12 +109,8 @@ defmodule Nba.Stats do
 
   @doc false
   def build_query_string(user_input_map, valid_keys) do
-    str_keyed =
-      user_input_map
-      |> Map.new(fn {k, v} -> {Atom.to_string(k), v} end)
-
     default_values_for(valid_keys)
-    |> Map.merge(str_keyed)
+    |> Map.merge(atom_key_to_string_key(user_input_map))
     |> Http.query_string_from_map()
   end
 
@@ -125,5 +121,10 @@ defmodule Nba.Stats do
       default_value = Parser.Stats.params_by_name() |> Map.get(key) |> Map.get("default")
       Map.put(acc, key, default_value)
     end)
+  end
+
+  @spec atom_key_to_string_key(map) :: map
+  defp atom_key_to_string_key(map) do
+    Map.new(map, fn {k, v} -> {Atom.to_string(k), v} end)
   end
 end

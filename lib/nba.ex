@@ -1,21 +1,23 @@
 defmodule Nba do
   @moduledoc """
-  nba.com uses a large number of undocumented JSON endpoints
-  to provide the statistics tables and charts displayed therein.
-  This library provides an Elixir client for interacting with many
-  of those API endpoints.
+  nba.com uses a large number of undocumented JSON endpoints to provide
+  the statistics tables and charts displayed therein. This library
+  provides an Elixir client for interacting with many of those API
+  endpoints.
 
-  This app is built from json files at compile time. You can configure the
-  paths of `endpoints` and `players` json files that elixir-nba reads.
+  `nba` is built from two JSON files at compile time — one containing
+  information on the API endpoints, and one containing a list of
+  players. You can configure the paths of the files that `nba` reads:
 
   ```
   config :nba, endpoint_json_path: "/Users/me/my/custom/path/endpoints.json"
   config :nba, player_json_path: "/Users/me/my/custom/path/players.json"
   ```
-  Now you don't have to wait until I publish a release to fix endpoint issues,
-  and can tweak the default parameter values, among other things. Keep in mind
-  that the shape of the data must stay the same (see `data/players.json` and
-  `data/endpoints.json`).
+  Now you don't have to wait until I publish a release to fix endpoint
+  issues, update the player list for the new season, or tweak the
+  default parameter values, among other things. Keep in mind that the
+  shape of the data must stay the same (see `data/players.json` and
+  `data/endpoints.json` on GitHub).
   """
 
   @doc """
