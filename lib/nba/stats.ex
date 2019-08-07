@@ -108,9 +108,20 @@ defmodule Nba.Stats do
   end
 
   @doc false
-  def build_query_string(user_input_map, valid_keys) do
+  def build_query_string(params, valid_keys) when map_size(params) > 0 do
+    user_input_map = if (Map.keys(params) |> List.first() |> is_atom()) do
+      atom_key_to_string_key(params)
+    else
+      params
+    end
+
     default_values_for(valid_keys)
-    |> Map.merge(atom_key_to_string_key(user_input_map))
+    |> Map.merge(user_input_map)
+    |> Http.query_string_from_map()
+  end
+
+  def build_query_string(_, valid_keys) do
+    default_values_for(valid_keys)
     |> Http.query_string_from_map()
   end
 

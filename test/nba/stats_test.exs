@@ -78,4 +78,28 @@ defmodule Nba.StatsTest do
     #then
     assert actual == "?PlayerID=100"
   end
+
+  test "query string still builds correctly when passing in string-keyed map" do
+    # given
+    user_input_map = %{"PlayerID" => 100}
+    valid_keys = ["PlayerID"]
+
+    # when
+    actual = Nba.Stats.build_query_string(user_input_map, valid_keys)
+
+    #then
+    assert actual == "?PlayerID=100"
+  end
+
+  test "query string still builds correctly when passing in empty map" do
+    # given
+    user_input_map = %{}
+    valid_keys = ["PlayerID"]
+
+    # when
+    actual = Nba.Stats.build_query_string(user_input_map, valid_keys)
+
+    #then
+    assert actual == "?PlayerID="
+  end
 end
