@@ -91,6 +91,18 @@ defmodule Nba.StatsTest do
     assert actual == "?PlayerID=100"
   end
 
+  test "query string still builds correctly when mixed-key map" do
+    # given
+    user_input_map = %{"PlayerID" => 100, Season: "2010-11"}
+    valid_keys = ["PlayerID", "Season"]
+
+    # when
+    actual = Nba.Stats.build_query_string(user_input_map, valid_keys)
+
+    #then
+    assert actual == "?PlayerID=100&Season=2010-11"
+  end
+
   test "query string still builds correctly when passing in empty map" do
     # given
     user_input_map = %{}
