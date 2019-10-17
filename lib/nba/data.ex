@@ -29,7 +29,7 @@ defmodule Nba.Data do
         "first_name" => "Justin",
         "last_name" => "Holiday",
         "player_id" => 203200,
-        "team_id" => 1610612741
+        "team_id" => 1610612754
       }]
   """
   @spec find_player(list(tuple) | String.t) :: list(map)

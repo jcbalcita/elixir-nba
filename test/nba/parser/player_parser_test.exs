@@ -9,7 +9,7 @@ defmodule Nba.Parser.PlayerTest do
     players_by_id = Parser.Player.players_by_id()
 
     # then
-    assert Enum.count(players) == 576
+    assert Enum.count(players) == 578
 
     assert Enum.each(players, fn p ->
              assert Map.has_key?(p, "player_id") && Map.has_key?(p, "first_name") &&
