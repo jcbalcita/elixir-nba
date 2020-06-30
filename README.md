@@ -1,4 +1,6 @@
-# ElixirNba
+  # ElixirNba
+  Update: nba.com borked calls to this API, I think. I don't have time to investigate or fix. This one is dead for now!
+
   https://hex.pm/packages/nba/
 
 
